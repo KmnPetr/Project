@@ -1,10 +1,17 @@
 package com.example.project.controllers;
 
 import com.example.project.models.Person;
+import com.example.project.security.PersonDetails;
 import com.example.project.services.PeopleService;
+import com.example.project.security.PersonDetailsService;
 import com.example.project.util.PersonValidator;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,15 +19,21 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.time.LocalDateTime;
+
 @Controller
 @RequestMapping("/auth")
 public class AuthController {
     private final PersonValidator personValidator;
     private final PeopleService peopleService;
+    private final AuthenticationManager authenticationManager;
+    private final PasswordEncoder passwordEncoder;
     @Autowired
-    public AuthController(PersonValidator personValidator, PeopleService peopleService) {
+    public AuthController(PersonValidator personValidator, PeopleService peopleService, AuthenticationManager authenticationManager, PasswordEncoder passwordEncoder) {
         this.personValidator = personValidator;
         this.peopleService = peopleService;
+        this.authenticationManager = authenticationManager;
+        this.passwordEncoder = passwordEncoder;
     }
 
     /**
@@ -43,9 +56,23 @@ public class AuthController {
     @PostMapping("/registration")
     public String performRegistration(@Valid @ModelAttribute("person")Person person/*получ.данных с формы*/,
                                       BindingResult bindingResult){
-        System.out.println("performRegistration called");
         personValidator.validate(person,bindingResult);
+
         if(bindingResult.hasErrors())return "auth/registration";
+
+
+        person.setPassword(passwordEncoder.encode(person.getPassword()));
+        person.setRole("ROLE_USER");
+        person.setCreatedAt(LocalDateTime.now());
+
+        PersonDetails personDetails=new PersonDetails(person);
+        UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(
+                personDetails,
+                null,
+                personDetails.getAuthorities());
+
+        Authentication authenticated = authenticationManager.authenticate(auth);
+        SecurityContextHolder.getContext().setAuthentication(authenticated);
 
         peopleService.registr(person);
 

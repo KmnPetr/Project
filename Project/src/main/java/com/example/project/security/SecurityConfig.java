@@ -3,26 +3,18 @@ package com.example.project.security;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
-    private final AuthProvider authProvider;
-
-    @Autowired
-    public SecurityConfig(AuthProvider authProvider) {
-        this.authProvider = authProvider;
-    }
-
-    @Autowired
-    protected void configureGlobal(AuthenticationManagerBuilder auth){
-        auth.authenticationProvider(authProvider);//был бы второй провайдер, можно было бы их составить здесь в цепочку
-    }
-
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         return http
@@ -50,12 +42,29 @@ public class SecurityConfig {
 //                .sessionManagement(it->it.sessionCreationPolicy(SessionCreationPolicy.STATELESS))//отключение сессий нужна при jwt
                 .build();
     }
+}
 
-    //нужен при доверии сравнения паролей спрингу без создания свих провайдеров
-    //его прийдется вынести отсюда в ProjectApplication т.к. дает непонятную ошибку при создании бина провайдера
-    /*@Bean
+@Configuration
+class SecurityConfig2{
+//    private final AuthProvider authProvider;
+//    @Autowired
+//    public SecurityConfig2(AuthProvider authProvider) {
+//        this.authProvider = authProvider;
+//    }
+//
+//    @Autowired
+//    protected void configureGlobal(AuthenticationManagerBuilder auth){
+//        auth.authenticationProvider(authProvider);//был бы второй провайдер, можно было бы их составить здесь в цепочку
+//    }
+    @Bean
+    //понадобился для ручной аутентификации
+    public AuthenticationManager authenticationManager(AuthenticationConfiguration authConfig)throws Exception{
+        return authConfig.getAuthenticationManager();
+    }
+    //вынес сюда, чтобы не создавать циклицескую зависимость в SecurityConfig
+    @Bean
     public PasswordEncoder getPasswordEncoder(){
-//        return NoOpPasswordEncoder.getInstance();//никак не шифруем пока
+//        return NoOpPasswordEncoder.getInstance();//никак не шифруем
         return new BCryptPasswordEncoder();
-    }*/
+    }
 }

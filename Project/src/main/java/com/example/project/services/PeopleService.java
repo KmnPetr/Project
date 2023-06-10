@@ -4,19 +4,15 @@ import com.example.project.models.Person;
 import com.example.project.repositories.PeopleRepositry;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
 
 @Service
 public class PeopleService {
     private final PeopleRepositry peopleRepositry;
-    private final PasswordEncoder passwordEncoder;
     @Autowired
-    public PeopleService(PeopleRepositry peopleRepositry, PasswordEncoder passwordEncoder) {
+    public PeopleService(PeopleRepositry peopleRepositry) {
         this.peopleRepositry = peopleRepositry;
-        this.passwordEncoder = passwordEncoder;
     }
 
     /**
@@ -30,9 +26,7 @@ public class PeopleService {
      */
     @Transactional
     public void registr(Person person){
-        person.setPassword(passwordEncoder.encode(person.getPassword()));
-        person.setRole("ROLE_USER");
-        person.setCreatedAt(LocalDateTime.now());
+
 
         peopleRepositry.save(person);
     }

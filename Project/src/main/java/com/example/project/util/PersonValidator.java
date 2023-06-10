@@ -32,7 +32,6 @@ public class PersonValidator implements Validator {
      */
     @Override
     public void validate(Object target, Errors errors) {
-        System.out.println("validate called");
         Person person=(Person)target;
         if(personService.findByUsername(person.getUsername())!=null)
             errors.rejectValue("username"/*на каком поле*/,
