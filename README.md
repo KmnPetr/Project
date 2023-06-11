@@ -1,3 +1,3 @@
 # Project
 
-В проекте скрыт файл "application.properties", так как он содержит ключи доступа от удаленной базы данных. 
+В проекте скрыт файл "application.properties".
