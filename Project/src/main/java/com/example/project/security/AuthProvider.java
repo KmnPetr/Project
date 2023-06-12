@@ -27,18 +27,18 @@ public class AuthProvider implements AuthenticationProvider {
     //вернет principal, если аутентификация пройдет успешно
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
-        System.out.println("вызвался authenticate");
 
         String username= authentication.getName();
 
         UserDetails personDetails=personDetailsService.loadUserByUsername(username);
         String password=authentication.getCredentials().toString();
-        if(!passwordEncoder.matches(password,personDetails.getPassword()))
-            throw new BadCredentialsException("Incorrect password!");
+        if(!passwordEncoder.matches(password,personDetails.getPassword())){
+            throw new BadCredentialsException("Incorrect password!");//TODO
+        }
 
         return new UsernamePasswordAuthenticationToken(
                 personDetails,
-                password,
+                null,
                 personDetails.getAuthorities());
     }
 

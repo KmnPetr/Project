@@ -15,6 +15,13 @@ import org.springframework.security.web.SecurityFilterChain;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
+    @Autowired
+    protected void configureGlobal(AuthenticationManagerBuilder auth,AuthProvider authProvider){
+        auth.authenticationProvider(authProvider);//был бы второй
+
+
+        // , можно было бы их составить здесь в цепочку
+    }
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         return http
@@ -37,7 +44,7 @@ public class SecurityConfig {
                 })
                 .logout(it->{
                     it.logoutUrl("/logout");
-                    it.logoutSuccessUrl("/auth/login"/*TODO не реализована*/);//сюда его перенаправит после логаута
+                    it.logoutSuccessUrl("/auth/login");//сюда его перенаправит после логаута
                 })
 //                .sessionManagement(it->it.sessionCreationPolicy(SessionCreationPolicy.STATELESS))//отключение сессий нужна при jwt
                 .build();
@@ -46,25 +53,15 @@ public class SecurityConfig {
 
 @Configuration
 class SecurityConfig2{
-//    private final AuthProvider authProvider;
-//    @Autowired
-//    public SecurityConfig2(AuthProvider authProvider) {
-//        this.authProvider = authProvider;
-//    }
-//
-//    @Autowired
-//    protected void configureGlobal(AuthenticationManagerBuilder auth){
-//        auth.authenticationProvider(authProvider);//был бы второй провайдер, можно было бы их составить здесь в цепочку
-//    }
     @Bean
     //понадобился для ручной аутентификации
     public AuthenticationManager authenticationManager(AuthenticationConfiguration authConfig)throws Exception{
         return authConfig.getAuthenticationManager();
     }
-    //вынес сюда, чтобы не создавать циклицескую зависимость в SecurityConfig
-    @Bean
-    public PasswordEncoder getPasswordEncoder(){
+//вынес сюда, чтобы не создавать циклицескую зависимость в SecurityConfig
+@Bean
+public PasswordEncoder getPasswordEncoder(){
 //        return NoOpPasswordEncoder.getInstance();//никак не шифруем
-        return new BCryptPasswordEncoder();
-    }
+    return new BCryptPasswordEncoder();
+}
 }

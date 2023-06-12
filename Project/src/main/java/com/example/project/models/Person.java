@@ -1,6 +1,7 @@
 package com.example.project.models;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
 import java.time.LocalDateTime;
@@ -13,12 +14,12 @@ public class Person {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     @Column(name = "username")
-//    @NotBlank(message = "This field should not be empty")
-    @Size(min = 1,max = 30,message = "This field must contain from 1 to 30 characters")
+    @NotBlank(message = "This field should not be empty.")
+    @Size(min = 1,max = 30,message = "This field must contain from 1 to 30 characters.")
     private String username;
     @Column(name = "password")
-//    @NotBlank(message = "This field should not be empty")
-    @Size(min = 1,max = 100,message = "This field must contain from 1 to 100 characters")
+    @NotBlank(message = "This field should not be empty.")
+    @Size(min = 1,max = 100,message = "This field must contain from 1 to 100 characters.")
     private String password;
     @Column(name = "role")
     private String role;

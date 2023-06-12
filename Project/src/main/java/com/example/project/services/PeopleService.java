@@ -26,8 +26,6 @@ public class PeopleService {
      */
     @Transactional
     public void registr(Person person){
-
-
         peopleRepositry.save(person);
     }
 }

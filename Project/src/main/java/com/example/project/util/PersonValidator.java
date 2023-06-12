@@ -36,6 +36,6 @@ public class PersonValidator implements Validator {
         if(personService.findByUsername(person.getUsername())!=null)
             errors.rejectValue("username"/*на каком поле*/,
                     "",
-                    "This username is already taken"/*сообщение*/);
+                    "This username is already taken."/*сообщение*/);
     }
 }

@@ -8,5 +8,4 @@ ARG JAR_FILE=target/*.jar
 
 COPY ${JAR_FILE} app.jar
 
-#новое
 CMD ["java", "-jar", "/app.jar"]

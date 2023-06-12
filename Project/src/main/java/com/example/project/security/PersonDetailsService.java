@@ -24,9 +24,10 @@ public class PersonDetailsService implements UserDetailsService {
      */
     @Override
     public PersonDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        System.out.println("loadUserByUsername called");
+
         PersonDetails personDetails=new PersonDetails(peopleService.findByUsername(username));
         if(personDetails.getPerson()==null)throw new UsernameNotFoundException("User not found!");
+
         return new PersonDetails(personDetails.getPerson());
     }
 }
