@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#9FE4AD08"
-    tools:context=".scrins.training.TrainingFragment">
+    tools:context=".screens.training.TrainingFragment">
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

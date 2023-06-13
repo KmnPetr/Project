@@ -1,4 +1,4 @@
-package com.example.zubrilkaenglish.scrins.menu
+package com.example.zubrilkaenglish.screens.menu
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.get
 import androidx.navigation.fragment.findNavController
 import com.example.zubrilkaenglish.R
 import com.example.zubrilkaenglish.databinding.FragmentMenuBinding

@@ -1,4 +1,4 @@
-package com.example.zubrilkaenglish.scrins.training
+package com.example.zubrilkaenglish.screens.training
 
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle

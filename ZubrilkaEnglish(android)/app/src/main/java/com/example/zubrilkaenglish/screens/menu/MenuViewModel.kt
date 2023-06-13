@@ -1,4 +1,4 @@
-package com.example.zubrilkaenglish.scrins.menu
+package com.example.zubrilkaenglish.screens.menu
 
 import androidx.lifecycle.ViewModel
 

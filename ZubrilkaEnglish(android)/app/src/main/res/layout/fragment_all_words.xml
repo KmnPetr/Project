@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#9FE4AD08"
-    tools:context=".scrins.allWords.AllWordsFragment">
+    tools:context=".screens.allWords.AllWordsFragment">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvAllWords"
