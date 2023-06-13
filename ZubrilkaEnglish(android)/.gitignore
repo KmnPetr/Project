@@ -13,3 +13,5 @@
 .externalNativeBuild
 .cxx
 local.properties
+###########мое###########
+/app/src/main/java/com/example/zubrilkaenglish/utils/settings.kt
