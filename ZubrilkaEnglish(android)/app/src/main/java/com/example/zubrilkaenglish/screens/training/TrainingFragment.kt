@@ -24,7 +24,6 @@ class TrainingFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         viewModel = ViewModelProvider(this).get(TrainingViewModel::class.java)
-        // TODO: Use the ViewModel
     }
 
 }

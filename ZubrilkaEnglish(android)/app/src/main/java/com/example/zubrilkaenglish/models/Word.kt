@@ -3,28 +3,25 @@ package com.example.zubrilkaenglish.models
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import java.time.LocalDateTime
 
-@Entity(tableName = "allword_table")
+@Entity(tableName = "all_word_table")
 data class Word(
-    @PrimaryKey(autoGenerate = false)
-    val id: Int,
-    @ColumnInfo
-    val foreignWord:String,
-    @ColumnInfo
-    val transcription:String,
-    @ColumnInfo
-    val translation:String,
-    @ColumnInfo
+    @PrimaryKey(autoGenerate = true)
+    val id: Int?,
+    @ColumnInfo(name = "foreignWord")
+    val foreignWord:String?,
+    @ColumnInfo(name = "transcription")
+    val transcription:String?,
+    @ColumnInfo(name = "translation")
+    val translation:String?,
+    @ColumnInfo(name = "hasVoise")
     val hasVoise: String?,
-    @ColumnInfo
+    @ColumnInfo(name = "hasImage")
     val hasImage: String?,
-    @ColumnInfo
-    val groupWord:String,
-    @ColumnInfo
-    val updatedAt: LocalDateTime?
+    @ColumnInfo(name = "groupWord")
+    val groupWord:String?
 ){
     override fun toString(): String {
-        return "Word ($id, '$foreignWord', $transcription, '$translation', $hasVoise, $hasImage, $groupWord, $updatedAt)"
+        return "Word ($id, '$foreignWord', $transcription, '$translation', $hasVoise, $hasImage, $groupWord)"
     }
 }
