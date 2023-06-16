@@ -32,14 +32,4 @@
             app:layout_constraintTop_toBottomOf="@+id/buttonGo"
             app:layout_constraintVertical_bias="0.0" />
 
-    <Button
-        android:id="@+id/buttonTestRoom"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="Test Room убери эту кнопку потом"
-        app:layout_constraintEnd_toEndOf="@+id/buttonListWeb"
-        app:layout_constraintStart_toStartOf="@+id/buttonListWeb"
-        app:layout_constraintTop_toBottomOf="@+id/buttonListWeb" />
-
 </androidx.constraintlayout.widget.ConstraintLayout>

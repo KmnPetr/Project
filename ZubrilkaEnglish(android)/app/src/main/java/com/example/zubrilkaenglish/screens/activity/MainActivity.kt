@@ -15,7 +15,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        APP=this//нужен в качестве контекста для Базы Данных
+        APP=this//нужен в качестве контекста для Базы Данных//TODO можно переделать https://youtu.be/Qo3fPCf_nVk
 
         binding= ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)

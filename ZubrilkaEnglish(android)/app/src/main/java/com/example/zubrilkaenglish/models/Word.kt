@@ -14,12 +14,12 @@ data class Word(
     val transcription:String?,
     @ColumnInfo(name = "translation")
     val translation:String?,
+    @ColumnInfo(name = "groupWord")
+    val groupWord:String?,
     @ColumnInfo(name = "hasVoise")
     val hasVoise: String?,
     @ColumnInfo(name = "hasImage")
-    val hasImage: String?,
-    @ColumnInfo(name = "groupWord")
-    val groupWord:String?
+    val hasImage: String?
 ){
     override fun toString(): String {
         return "Word ($id, '$foreignWord', $transcription, '$translation', $hasVoise, $hasImage, $groupWord)"
