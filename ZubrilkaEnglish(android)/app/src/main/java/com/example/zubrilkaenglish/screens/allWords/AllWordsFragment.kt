@@ -6,12 +6,9 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
-import androidx.lifecycle.get
 import androidx.recyclerview.widget.RecyclerView
 import com.example.zubrilkaenglish.databinding.FragmentAllWordsBinding
 import com.example.zubrilkaenglish.screens.activity.MainViewModel
-import com.example.zubrilkaenglish.utils.APP
 
 class AllWordsFragment : Fragment() {
 
@@ -31,7 +28,6 @@ class AllWordsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        APP = requireContext()
 
         viewModel = ViewModelProvider(this).get(AllWordsViewModel::class.java)
         mainViewModel= ViewModelProvider(this).get(MainViewModel::class.java)

@@ -6,7 +6,7 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "all_word_table")
 data class Word(
-    @PrimaryKey(autoGenerate = true)
+    @PrimaryKey(autoGenerate = false)
     val id: Int?,
     @ColumnInfo(name = "foreignWord")
     val foreignWord:String?,

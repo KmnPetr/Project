@@ -1,9 +1,9 @@
 package com.example.zubrilkaenglish.repositories.room
 
-import android.content.Context
+import com.example.zubrilkaenglish.models.PropModel
 import com.example.zubrilkaenglish.models.Word
 
-class RoomRepository{
+class RoomService{
 
     private val dataBase=DataBase.getInstanseDB()
 
@@ -18,5 +18,9 @@ class RoomRepository{
 
     suspend fun deleteAllWords(){
         dataBase.getWordDAO().deleteAllWords()
+    }
+
+    suspend fun getUpdateAt(): String {
+        return dataBase.getPropDAO().getUpdateAt().value
     }
 }

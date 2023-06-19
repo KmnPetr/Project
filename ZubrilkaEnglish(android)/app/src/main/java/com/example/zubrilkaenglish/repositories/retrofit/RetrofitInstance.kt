@@ -11,7 +11,10 @@ object RetrofitInstance {
             .addConverterFactory(GsonConverterFactory.create())
             .build()
     }
-    val api:ApiService by lazy {
-        retrofit.create(ApiService::class.java)
+    val wordApi:WordApi by lazy {
+        retrofit.create(WordApi::class.java)
+    }
+    val propApi:PropApi by lazy{
+        retrofit.create(PropApi::class.java)
     }
 }//TODO забыл интерсептор

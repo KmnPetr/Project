@@ -4,7 +4,6 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.lifecycle.ViewModelProvider
 import com.example.zubrilkaenglish.databinding.ActivityMainBinding
-import com.example.zubrilkaenglish.utils.APP
 
 class MainActivity : AppCompatActivity() {
 
@@ -14,8 +13,6 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        APP=this//нужен в качестве контекста для Базы Данных//TODO можно переделать https://youtu.be/Qo3fPCf_nVk
 
         binding= ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
