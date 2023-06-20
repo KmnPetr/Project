@@ -12,12 +12,16 @@ class MainViewModel: ViewModel() {
 
     private val repository= Repository()
 
-    val listAllWords: MutableLiveData<List<Word>> = MutableLiveData()
+    private val listAllWords: MutableLiveData<List<Word>> = MutableLiveData()
 
+    /**
+     * функция вернет список Words и если он пустой сделает запрос в репозиторий
+     */
     fun getListAllWords(): LiveData<List<Word>> {
-        viewModelScope.launch {
-            listAllWords.value=repository.getAllWords()
-            println("получили список из dataService")
+        if(listAllWords.value==null){
+            viewModelScope.launch {
+                listAllWords.value=repository.getAllWords()
+            }
         }
         return listAllWords
     }

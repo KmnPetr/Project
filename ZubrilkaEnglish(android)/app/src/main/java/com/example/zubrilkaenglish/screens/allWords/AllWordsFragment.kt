@@ -30,7 +30,7 @@ class AllWordsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         viewModel = ViewModelProvider(this).get(AllWordsViewModel::class.java)
-        mainViewModel= ViewModelProvider(this).get(MainViewModel::class.java)
+        mainViewModel= ViewModelProvider(requireActivity()).get(MainViewModel::class.java)
 
         recyclerView=binding.rvAllWords
         adapter=AllWordsAdapter()

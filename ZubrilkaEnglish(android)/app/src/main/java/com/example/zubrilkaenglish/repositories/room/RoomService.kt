@@ -1,7 +1,10 @@
 package com.example.zubrilkaenglish.repositories.room
 
+import android.util.Log
+import android.widget.Toast
 import com.example.zubrilkaenglish.models.PropModel
 import com.example.zubrilkaenglish.models.Word
+import com.example.zubrilkaenglish.utils.MyApplication
 
 class RoomService{
 
@@ -20,7 +23,16 @@ class RoomService{
         dataBase.getWordDAO().deleteAllWords()
     }
 
-    suspend fun getUpdateAt(): String {
-        return dataBase.getPropDAO().getUpdateAt().value
+    suspend fun getUpdatedAt(): String? {
+            return dataBase.getPropDAO().getUpdatedAt()?.value
+    }
+
+    /**
+     * функция добавит новое значение по ключу update_at или обновит старое
+     */
+    suspend fun insertNewUpdatedAt(newUpdatedAt: String?) {
+        if(dataBase.getPropDAO().getUpdatedAt()!=null){
+            dataBase.getPropDAO().updateUpdatedAt(newUpdatedAt)
+        }else dataBase.getPropDAO().insertNewUpdatedAt(newUpdatedAt)
     }
 }

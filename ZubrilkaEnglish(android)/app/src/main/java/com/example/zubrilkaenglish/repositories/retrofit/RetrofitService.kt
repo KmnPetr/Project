@@ -1,17 +1,27 @@
 package com.example.zubrilkaenglish.repositories.retrofit
 
-import android.os.Build
-import androidx.annotation.RequiresApi
+import android.widget.Toast
 import com.example.zubrilkaenglish.models.Word
-import java.time.ZonedDateTime
-import java.time.format.DateTimeFormatter
+import com.example.zubrilkaenglish.utils.MyApplication
 
 class RetrofitService {
-    suspend fun getAllWords():List<Word>?{
-        return RetrofitInstance.wordApi.getAllWords().body()//TODO там приходит response его нужно обработать здесь
+    suspend fun getAllWords(): List<Word>? {
+        try{
+            return RetrofitInstance.wordApi.getAllWords().body()//TODO там приходит response его нужно обработать здесь
+        }catch (e:Exception){
+            e.printStackTrace()
+            Toast.makeText(MyApplication.context,"ошибка подключения к серверу",Toast.LENGTH_LONG).show()
+            return null
+        }
     }
 
     suspend fun getUpdateAt(): String? {
-        return RetrofitInstance.propApi.getUpdateAt().body()?.value
+        try{
+            return RetrofitInstance.propApi.getUpdateAt().body()?.value
+        }catch (e:Exception){
+            e.printStackTrace()
+            Toast.makeText(MyApplication.context,"ошибка подключения к серверу",Toast.LENGTH_LONG).show()
+            return null
+        }
     }
 }
