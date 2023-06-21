@@ -8,7 +8,7 @@ CREATE TABLE Person(
 
 DROP TABLE Person;
 
-UPDATE Person SET role='ROLE_ADMIN' WHERE id=1;
+UPDATE Person SET role='ROLE_ADMIN' WHERE id=2;
 
 INSERT INTO Person(username, password, role) VALUES
 ('user','password','USER'),('admin','password','ADMIN');

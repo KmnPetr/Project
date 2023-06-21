@@ -1,0 +1,25 @@
+body {
+    background-color: rgb(0, 0, 0);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+h1{
+    font-size: 30px;
+    text-align:center;
+    font-style:italic;
+    color:green;
+}
+p{
+    color: aliceblue;
+}
+a{
+    font-style: italic;
+}
+.myflex{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}

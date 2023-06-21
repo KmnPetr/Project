@@ -3,27 +3,22 @@
 <head>
   <meta charset="UTF-8">
   <title>Login page</title>
+  <link rel="stylesheet" href="/res/style.css">
   <style>
     body{
-      background-color: rgba(184, 134, 11, 0.75);
-    }
-    form {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      height: 100vh;
+      background-image: url("/res/image/2.jpeg");
     }
   </style>
 </head>
 <body>
 <br/>
-<p><a href="/hello" style="font-style: italic; padding: 15px">Назад</a></p>
+<p><a href="/hello" style="padding: 15px">Назад</a></p>
 <br/>
-<form name="f" method="post" action="/process_login">
+<form class="myflex"
+      name="f" method="post" action="/process_login">
   <!--  подключили SCRF токен-->
   <!--  <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>-->
-  <h1 style="text-align:center; font-size:30px; font-style:italic; color:green">Пройдите аутентификацию!</h1>
+  <h1>Пройдите аутентификацию!</h1>
   <br/>
   <input type="text" name="username" id="username" placeholder="Введите логин:"/>
   <div th></div>
@@ -33,7 +28,7 @@
   <div style="color: yellow" th:if="${param.error}">Неправильные имя или пароль</div>
   <input type="submit" value="Login" style="font-style: italic"/>
   <br/>
-  <p>Еще нет аккаунта? Пройдите <a href="/auth/registration" style=" font-style: italic">регистрацию</a>.</p>
+  <p>Еще нет аккаунта? Пройдите <a href="/auth/registration">регистрацию</a>.</p>
 </form>
 
 </body>

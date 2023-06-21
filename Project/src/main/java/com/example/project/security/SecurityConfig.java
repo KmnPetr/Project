@@ -30,9 +30,10 @@ public class SecurityConfig {
                     auth.requestMatchers(
                             "/hello",
                             "/auth/login",
-                            "auth/registration").permitAll();//для открытых форм
+                            "/auth/registration",
+                            "/res/**").permitAll();//для открытых форм
                     auth.requestMatchers(
-                            "auth/succesRegistPage",
+                            "/auth/succesRegistPage",
                             "/home").hasAnyRole("USER","ADMIN");
 //                    auth.requestMatchers("/admin").hasRole("ADMIN");
                 })
