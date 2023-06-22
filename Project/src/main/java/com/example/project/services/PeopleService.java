@@ -1,7 +1,7 @@
 package com.example.project.services;
 
 import com.example.project.models.Person;
-import com.example.project.repositories.PeopleRepositry;
+import com.example.project.repositories.PeopleRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -9,23 +9,23 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class PeopleService {
-    private final PeopleRepositry peopleRepositry;
+    private final PeopleRepository peopleRepository;
     @Autowired
-    public PeopleService(PeopleRepositry peopleRepositry) {
-        this.peopleRepositry = peopleRepositry;
+    public PeopleService(PeopleRepository peopleRepository) {
+        this.peopleRepository = peopleRepository;
     }
 
     /**
      * найдет Person по username или вернет null
      */
     public Person findByUsername(String username) {
-        return peopleRepositry.findByUsername(username).orElse(null);
+        return peopleRepository.findByUsername(username).orElse(null);
     }
     /**
      * зарегестрирует нового человека
      */
     @Transactional
     public void registr(Person person){
-        peopleRepositry.save(person);
+        peopleRepository.save(person);
     }
 }
