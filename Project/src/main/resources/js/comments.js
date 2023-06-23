@@ -16,4 +16,3 @@ function fetchAndDisplayData() {
 
 // Вызываем функцию fetchAndDisplayData при загрузке страницы
 window.addEventListener('load', fetchAndDisplayData);
-```

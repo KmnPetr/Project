@@ -2,7 +2,6 @@ package com.example.project.controllers;
 
 import com.example.project.models.Person;
 import com.example.project.security.PersonDetails;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,5 +21,13 @@ public class HomeController {
         model.addAttribute("username",person.getUsername());
 
         return "home/home";
+    }
+
+    /**
+     * выдает страницу для просмотра комментариев
+     */
+    @GetMapping("/comment")
+    public String getCommentPage(){
+        return "home/comment";
     }
 }

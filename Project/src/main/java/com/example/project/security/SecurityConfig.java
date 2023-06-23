@@ -31,10 +31,13 @@ public class SecurityConfig {
                             "/hello",
                             "/auth/login",
                             "/auth/registration",
-                            "/res/**").permitAll();//для открытых форм
+                            "/error?continue",
+                            "/res/**",
+                            "/comment/**"
+                    ).permitAll();//для открытых форм
                     auth.requestMatchers(
                             "/auth/succesRegistPage",
-                            "/home").hasAnyRole("USER","ADMIN");
+                            "/home/**").hasAnyRole("USER","ADMIN");
 //                    auth.requestMatchers("/admin").hasRole("ADMIN");
                 })
                 .formLogin(it-> {

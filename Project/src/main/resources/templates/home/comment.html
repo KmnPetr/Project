@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1 style="font-size: 50px">Comment page!</h1>
+<br/>
+
+<ul id="comment-list"></ul>
+
+<script>
+    // Функция для получения данных из сети
+    function fetchComments() {
+        fetch('/comment/get_all')
+            .then(response => response.json())
+            .then(data => displayComments(data))
+            .catch(error => console.log(error));
+    }
+
+    // Функция для отображения комментариев в списке
+    function displayComments(comments) {
+        const commentList = document.getElementById('comment-list');
+
+        // Очистка списка перед добавлением новых элементов
+        commentList.innerHTML = '';
+
+        // Итерация по каждому комментарию и добавление его в список
+        comments.forEach(comment => {
+            const listItem = document.createElement('li');
+            listItem.textContent = comment.text;
+            commentList.appendChild(listItem);
+        });
+    }
+
+    // Вызов функции при загрузке страницы
+    fetchComments();
+</script>
+</body>
+</html>
