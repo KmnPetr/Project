@@ -11,20 +11,34 @@ import java.io.IOException;
 import java.io.InputStream;
 
 @RestController
-@RequestMapping("/res")
-public class ResourseController {
+@RequestMapping("/files")
+public class FilesController {
+    /**
+     * вернет файл style.css для нужд html форм
+     */
     @GetMapping("/style.css")
     public ResponseEntity<byte[]> getStyle() throws IOException {
-        InputStream in=getClass().getResourceAsStream("/style/style.css");
+        InputStream in=getClass().getResourceAsStream("/files/style.css");
         return ResponseEntity
                 .ok()
                 .header(HttpHeaders.CONTENT_TYPE,"text/css")
                 .body(in.readAllBytes());
     }
+    /**
+     * вернет файл comment.js для нужд html форм
+     */
+    @GetMapping("/comment.js")
+    public ResponseEntity<byte[]> getScript() throws IOException {
+        InputStream in=getClass().getResourceAsStream("/files/comment.js");
+        return ResponseEntity
+                .ok()
+                .header(HttpHeaders.CONTENT_TYPE, "application/javascript")
+                .body(in.readAllBytes());
+    }
 
     @GetMapping("/image/{name}")
     public ResponseEntity<byte[]> getImage(@PathVariable("name") String name) throws IOException {
-        InputStream in=getClass().getResourceAsStream("/drawable/"+name);
+        InputStream in=getClass().getResourceAsStream("/files/image/" +name);
         return ResponseEntity
                 .ok()
                 .header(HttpHeaders.CONTENT_TYPE,"image/jpeg")

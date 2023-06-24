@@ -1,37 +1,62 @@
 package com.example.project.controllers;
 
 
+import com.example.project.dto.CommentDTO;
 import com.example.project.models.Comment;
 import com.example.project.services.CommentsService;
+import jakarta.validation.Valid;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
 @RequestMapping("/comment")
 public class CommentsController {
     private final CommentsService commentsService;
+    private final ModelMapper modelMapper;
     @Autowired
-    public CommentsController(CommentsService commentsService) {
+    public CommentsController(CommentsService commentsService, ModelMapper modelMapper) {
         this.commentsService = commentsService;
+        this.modelMapper = modelMapper;
     }
 
     @GetMapping("/get_all")
-    public List<Comment> getAllCommentJSON(){
-        System.out.println("getAllCommentJSON called");
-        return commentsService.getAllComments();
+    public List<CommentDTO> getAllCommentJSON(){
+        List<Comment>comments=commentsService.getAllComments();
+        List<CommentDTO>commentDTO = new ArrayList<>();
+        for (Comment el:comments) {
+            commentDTO.add(convertToCommentDTO(el));
+        }
+        return commentDTO;
     }
-//    @GetMapping("/get_list")
-//    @PostMapping("/create")
-//    public String create(@Valid @ModelAttribute("comment")Comment comment,
-//                         BindingResult bindingResult){
-//        if(bindingResult.hasErrors())return "home/commentPage";
-//
-//        commentsService.create(comment);
-//
-//        return ""
-//    }
+
+    @PostMapping("/create")
+    public ResponseEntity<String> createComment(@Valid @RequestBody Comment comment) {
+
+        commentsService.create(comment);
+
+        return ResponseEntity.ok("Комментарий создан");
+    }
+
+    @GetMapping("/like")
+    public void Liked(@RequestParam("type")String type,@RequestParam("id")int id){
+        System.out.println("Пользователь поставил "+type+" к "+id+" коментарию.");
+    }
+
+    private CommentDTO convertToCommentDTO(Comment comment){
+        return new CommentDTO(
+                comment.getId(),
+                comment.getText(),
+                comment.getCount_likes(),
+                comment.getCount_dislikes(),
+                comment.getCreated_at(),
+                comment.getOwner().getId(),
+                comment.getOwner().getUsername(),
+                comment.getOwner().getRole()
+        );
+    }
 }

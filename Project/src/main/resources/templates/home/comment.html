@@ -3,39 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <script src="/files/comment.js"></script>
 </head>
+
 <body>
+
 <h1 style="font-size: 50px">Comment page!</h1>
-<br/>
 
-<ul id="comment-list"></ul>
+<br/><hr/><br/>
 
-<script>
-    // Функция для получения данных из сети
-    function fetchComments() {
-        fetch('/comment/get_all')
-            .then(response => response.json())
-            .then(data => displayComments(data))
-            .catch(error => console.log(error));
-    }
 
-    // Функция для отображения комментариев в списке
-    function displayComments(comments) {
-        const commentList = document.getElementById('comment-list');
 
-        // Очистка списка перед добавлением новых элементов
-        commentList.innerHTML = '';
+<!--/////////////////////////////////////////////////////////////////-->
+<!--/////////////////////////////////////////////////////////////////-->
+<!--/////////////////////////////////////////////////////////////////-->
+<!--/////////////////////////////////////////////////////////////////-->
+<form id="commentForm">
+    <input type="text" id="commentInput" placeholder="Введите комментарий" required>
+    <button type="submit">Отправить</button>
+</form>
+<script>sendCommentObject.init()</script>
+<!--/////////////////////////////////////////////////////////////////-->
+<!--/////////////////////////////////////////////////////////////////-->
+<!--/////////////////////////////////////////////////////////////////-->
+<!--/////////////////////////////////////////////////////////////////-->
 
-        // Итерация по каждому комментарию и добавление его в список
-        comments.forEach(comment => {
-            const listItem = document.createElement('li');
-            listItem.textContent = comment.text;
-            commentList.appendChild(listItem);
-        });
-    }
 
-    // Вызов функции при загрузке страницы
-    fetchComments();
-</script>
+
+<br/><hr/><br/>
+
+<div id="comment-list">
+    <script>getCommentObject.fetchComments();</script>
+</div>
+
 </body>
 </html>

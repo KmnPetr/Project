@@ -5,6 +5,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Table(name = "person")
@@ -25,6 +26,8 @@ public class Person {
     private String role;
     @Column(name = "created_at")
     private LocalDateTime createdAt;
+    @OneToMany(mappedBy = "owner")
+    private List<Comment> comments;
 
     public Person() {}
 
@@ -38,6 +41,8 @@ public class Person {
     public void setRole(String role) {this.role = role;}
     public LocalDateTime getCreatedAt() {return createdAt;}
     public void setCreatedAt(LocalDateTime createdAt) {this.createdAt = createdAt;}
+    public List<Comment> getComments() {return comments;}
+    public void setComments(List<Comment> comments) {this.comments = comments;}
 
     @Override
     public String toString() {

@@ -17,10 +17,7 @@ import org.springframework.security.web.SecurityFilterChain;
 public class SecurityConfig {
     @Autowired
     protected void configureGlobal(AuthenticationManagerBuilder auth,AuthProvider authProvider){
-        auth.authenticationProvider(authProvider);//был бы второй
-
-
-        // , можно было бы их составить здесь в цепочку
+        auth.authenticationProvider(authProvider);//был бы второй, можно было бы их составить здесь в цепочку
     }
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
@@ -32,12 +29,12 @@ public class SecurityConfig {
                             "/auth/login",
                             "/auth/registration",
                             "/error?continue",
-                            "/res/**",
-                            "/comment/**"
+                            "/files/**"
                     ).permitAll();//для открытых форм
                     auth.requestMatchers(
                             "/auth/succesRegistPage",
-                            "/home/**").hasAnyRole("USER","ADMIN");
+                            "/home/**",
+                            "/comment/**").hasAnyRole("USER","ADMIN");
 //                    auth.requestMatchers("/admin").hasRole("ADMIN");
                 })
                 .formLogin(it-> {

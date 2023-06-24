@@ -1,5 +1,6 @@
 package com.example.project;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
@@ -15,4 +16,9 @@ public class ProjectApplication {
 		SpringApplication.run(ProjectApplication.class, args);
 	}
 
+	//это для перемапивания DTO
+	@Bean
+	public ModelMapper modelMapper(){
+		return new ModelMapper();
+	}
 }
