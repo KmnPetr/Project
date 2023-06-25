@@ -45,6 +45,8 @@ public class CommentsController {
     @GetMapping("/like")
     public void Liked(@RequestParam("type")String type,@RequestParam("id")int id){
         System.out.println("Пользователь поставил "+type+" к "+id+" коментарию.");
+
+        commentsService.updateLikes(type,id);
     }
 
     private CommentDTO convertToCommentDTO(Comment comment){

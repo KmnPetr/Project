@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.List;
 
 @Service
@@ -41,4 +40,20 @@ public class CommentsService {
         commentsRepository.save(comment);
     }
 
+    /**
+     * метод реагирует на нажатие кнопок лайков и дизлайков
+     */
+    @Transactional
+    public void updateLikes(String type, int id) {
+        switch (type) {
+            case "like":
+                commentsRepository.updateCountLike((long) id);
+                break;
+            case "dislike":
+                commentsRepository.updateCountDislike((long) id);
+                break;
+            default:
+                System.out.println("Некорректный тип");
+        }
+    }
 }

@@ -22,10 +22,13 @@ var getCommentObject={
             const commentText = document.createElement('p');
             commentText.textContent =comment.text;
 
-            // Создание кнопки "like"
+            //создание кнопок лайков
+            let count_likes = document.createElement('a');
+            count_likes.innerText = ' '+comment.count_likes+' ';
             const likeButton = document.createElement('button');
             likeButton.textContent = 'like';
-            // Создание кнопки "dislike"
+            let count_dislikes = document.createElement('a');
+            count_dislikes.innerText = ' '+comment.count_dislikes+' ';
             const dislikeButton = document.createElement('button');
             dislikeButton.textContent = 'dislike';
 
@@ -33,18 +36,46 @@ var getCommentObject={
             likeButton.addEventListener('click', () => {
                 const request = new XMLHttpRequest();
                 request.open('GET', `/comment/like?type=like&id=${comment.id}`);
+
+                request.onload = function() {
+                    if (request.status === 200) {
+                        console.log('Успешный запрос');
+                        getCommentObject.fetchComments();//обновляем список комментов
+                    } else {
+                        console.log('Не удалось выполнить запрос');
+                        console.log(request.responseText);
+                    }
+                };
+                request.onerror = function() {
+                    console.log('Произошла ошибка сети');
+                };
+
                 request.send();
             });
             // Обработчик события при нажатии на кнопку "dislike"
             dislikeButton.addEventListener('click', () => {
                 const request = new XMLHttpRequest();
                 request.open('GET', `/comment/like?type=dislike&id=${comment.id}`);
+                request.onload = function() {
+                    if (request.status === 200) {
+                        console.log('Успешный запрос');
+                        getCommentObject.fetchComments();//обновляем список комментов
+                    } else {
+                        console.log('Не удалось выполнить запрос');
+                        console.log(request.responseText);
+                    }
+                };
+                request.onerror = function() {
+                    console.log('Произошла ошибка сети');
+                };
                 request.send();
             });
 
             commentList.appendChild(ownerAndDate);
             commentList.appendChild(commentText);
+            commentList.appendChild(count_likes);
             commentList.appendChild(likeButton);
+            commentList.appendChild(count_dislikes);
             commentList.appendChild(dislikeButton);
             commentList.appendChild(document.createElement('hr'));
         });
