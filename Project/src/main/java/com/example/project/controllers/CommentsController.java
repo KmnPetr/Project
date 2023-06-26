@@ -53,8 +53,8 @@ public class CommentsController {
         return new CommentDTO(
                 comment.getId(),
                 comment.getText(),
-                comment.getCount_likes(),
-                comment.getCount_dislikes(),
+                comment.getPeopleHaveLiked().size(),
+                comment.getPeopleHaveDisliked().size(),
                 comment.getCreated_at(),
                 comment.getOwner().getId(),
                 comment.getOwner().getUsername(),

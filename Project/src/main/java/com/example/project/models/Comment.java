@@ -1,11 +1,11 @@
 package com.example.project.models;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Table(name = "comments")
@@ -27,6 +27,21 @@ public class Comment {
     @ManyToOne
     @JoinColumn(name = "owner_id",referencedColumnName = "id")
     private Person owner;
+
+    @ManyToMany
+    @JoinTable(
+            name = "Likes_Person_Comment",
+            joinColumns = @JoinColumn(name = "comment_id"),
+            inverseJoinColumns = @JoinColumn(name = "person_id")
+    )
+    private List<Person>peopleHaveLiked;
+    @ManyToMany
+    @JoinTable(
+            name = "Dislikes_Person_Comment",
+            joinColumns = @JoinColumn(name = "comment_id"),
+            inverseJoinColumns = @JoinColumn(name = "person_id")
+    )
+    private List<Person>peopleHaveDisliked;
 
     public int getId() {return id;}
     public void setId(int id) {this.id = id;}
@@ -52,4 +67,9 @@ public class Comment {
                 ", owner=" + owner +
                 '}';
     }
+
+    public List<Person> getPeopleHaveLiked() {return peopleHaveLiked;}
+    public void setPeopleHaveLiked(List<Person> peopleHaveLiked) {this.peopleHaveLiked = peopleHaveLiked;}
+    public List<Person> getPeopleHaveDisliked() {return peopleHaveDisliked;}
+    public void setPeopleHaveDisliked(List<Person> peopleHaveDisliked) {this.peopleHaveDisliked = peopleHaveDisliked;}
 }

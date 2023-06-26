@@ -7,7 +7,6 @@ CREATE TABLE Person(
 );
 
 DROP TABLE Person;
-DROP TABLE Comments;
 
 UPDATE Person SET role='ROLE_ADMIN' WHERE id=1;
 
@@ -21,9 +20,17 @@ CREATE TABLE Comments(
     count_dislikes int,
     created_at timestamp
 );
-
-INSERT INTO Comments(owner_id,text)
-VALUES
-    (1,'text1 text1 text1 text1 text1 text1 text1'),
-    (1,'text2 text2 text2 text2 text2 text2 text2'),
-    (1,'text3 text3 text3 text3 text3 text3 text3');
+DROP TABLE Comments;
+-- ///////////////////////////////////////////////
+CREATE TABLE Likes_Person_Comment(
+    person_id int REFERENCES Person(id),
+    comment_id int REFERENCES Comments(id),
+    PRIMARY KEY (person_id,comment_id)
+);
+CREATE TABLE Dislikes_Person_Comment(
+    person_id int REFERENCES Person(id),
+    comment_id int REFERENCES Comments(id),
+    PRIMARY KEY (person_id,comment_id)
+);
+DROP TABLE Likes_Person_Comment;
+DROP TABLE Dislikes_Person_Comment;

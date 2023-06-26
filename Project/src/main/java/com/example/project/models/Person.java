@@ -6,6 +6,7 @@ import jakarta.validation.constraints.Size;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Table(name = "person")
@@ -26,8 +27,8 @@ public class Person {
     private String role;
     @Column(name = "created_at")
     private LocalDateTime createdAt;
-    @OneToMany(mappedBy = "owner")
-    private List<Comment> comments;
+//    @OneToMany(mappedBy = "owner")
+//    private List<Comment> comments;
 
     public Person() {}
 
@@ -41,8 +42,8 @@ public class Person {
     public void setRole(String role) {this.role = role;}
     public LocalDateTime getCreatedAt() {return createdAt;}
     public void setCreatedAt(LocalDateTime createdAt) {this.createdAt = createdAt;}
-    public List<Comment> getComments() {return comments;}
-    public void setComments(List<Comment> comments) {this.comments = comments;}
+//    public List<Comment> getComments() {return comments;}
+//    public void setComments(List<Comment> comments) {this.comments = comments;}
 
     @Override
     public String toString() {
@@ -53,5 +54,17 @@ public class Person {
                 ", role='" + role + '\'' +
                 ", createdAt=" + createdAt +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Person person = (Person) o;
+        return id == person.id && Objects.equals(username, person.username);
+    }
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, username);
     }
 }
