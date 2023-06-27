@@ -23,3 +23,22 @@ a{
     justify-content: center;
     height: 100vh;
 }
+.comment_info{
+    color: lightgray;
+    font-size: 12px;
+}
+.comment_text{
+    font-style: normal;
+    color: black;
+}
+.comment_like_number{
+    font-style: normal;
+    color: black;
+}
+.customButton{
+    background-image: url("/files/image/finger_up_green.jpg");
+    background-size: cover;
+    width: 100px;
+    height: 100px;
+    border: none;
+}

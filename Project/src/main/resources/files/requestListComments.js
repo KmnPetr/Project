@@ -1,15 +1,13 @@
-var getCommentObject={
-
     // Функция для получения данных из сети
-        fetchComments:function() {
+    function fetchComments() {
         fetch('/comment/get_all')
             .then(response => response.json())
             .then(comments => this.displayComments(comments))
             .catch(error => console.log(error));
-    },
+    }
 
     // Функция для отображения комментариев в списке
-    displayComments:function(comments) {
+    function displayComments(comments) {
         const commentList = document.getElementById('comment-list');
 
         // Очистка списка перед добавлением новых элементов
@@ -17,20 +15,15 @@ var getCommentObject={
 
         // Итерация по каждому комментарию и добавление его в список
         comments.forEach(comment => {
-            const ownerAndDate=document.createElement('p');
-            ownerAndDate.textContent=comment.owner_name+' '+comment.created_at;
-            const commentText = document.createElement('p');
-            commentText.textContent =comment.text;
-
+            let ownerAndDate=document.createElement('p');ownerAndDate.textContent=comment.owner_name+' '+comment.created_at;ownerAndDate.classList.add('comment_info');
+            let commentText = document.createElement('p');commentText.textContent =comment.text;commentText.classList.add('comment_text');
             //создание кнопок лайков
-            let count_likes = document.createElement('a');
-            count_likes.innerText = ' '+comment.count_likes+' ';
-            const likeButton = document.createElement('button');
-            likeButton.textContent = 'like';
-            let count_dislikes = document.createElement('a');
-            count_dislikes.innerText = ' '+comment.count_dislikes+' ';
-            const dislikeButton = document.createElement('button');
-            dislikeButton.textContent = 'dislike';
+            let count_likes = document.createElement('a');count_likes.innerText = ' '+comment.count_likes+' ';count_likes.classList.add('comment_like_number');
+            let likeButton = document.createElement('button');count_likes.classList.add('customButton')
+            let count_dislikes = document.createElement('a');count_dislikes.innerText = ' '+comment.count_dislikes+' ';count_dislikes.classList.add('comment_like_number');
+            let dislikeButton = document.createElement('button');dislikeButton.textContent = 'dislike';
+
+
 
             // Обработчик события при нажатии на кнопку "like"
             likeButton.addEventListener('click', () => {
@@ -40,7 +33,7 @@ var getCommentObject={
                 request.onload = function() {
                     if (request.status === 200) {
                         console.log('Успешный запрос');
-                        getCommentObject.fetchComments();//обновляем список комментов
+                        fetchComments();//обновляем список комментов
                     } else {
                         console.log('Не удалось выполнить запрос');
                         console.log(request.responseText);
@@ -59,7 +52,7 @@ var getCommentObject={
                 request.onload = function() {
                     if (request.status === 200) {
                         console.log('Успешный запрос');
-                        getCommentObject.fetchComments();//обновляем список комментов
+                        fetchComments();//обновляем список комментов
                     } else {
                         console.log('Не удалось выполнить запрос');
                         console.log(request.responseText);
@@ -80,41 +73,3 @@ var getCommentObject={
             commentList.appendChild(document.createElement('hr'));
         });
     }
-}
-
-var sendCommentObject={
-    init:function () {
-        document.getElementById('commentForm')
-            .addEventListener('submit',
-                function(event) {
-            event.preventDefault(); // Отменяем стандартное поведение формы
-
-            // Получаем значение введенного текста
-            var comment = document.getElementById('commentInput').value;
-
-            // Создаем AJAX-запрос для отправки данных на сервер
-            var request = new XMLHttpRequest();
-                    request.open('POST', '/comment/create', true);
-                    request.setRequestHeader('Content-Type', 'application/json');
-
-                    request.onreadystatechange = function() {
-                if (request.readyState === XMLHttpRequest.DONE && request.status === 200) {
-                    // Обработка успешной отправки комментария
-                    console.log('status 200');
-                    console.log(request.responseText);
-                    //очищаем поле
-                    document.getElementById('commentInput').value='';
-                    //обновляем список комментов
-                    getCommentObject.fetchComments();
-                } else {
-                    // Обработка ошибки отправки комментария
-                    console.log('Ошибка при отправке комментария');
-                }
-            };
-
-            // Отправляем данные на сервер
-                    request.send(JSON.stringify({text: comment}));
-        });
-    }
-
-}

@@ -27,9 +27,9 @@ public class FilesController {
     /**
      * вернет файл comment.js для нужд html форм
      */
-    @GetMapping("/comment.js")
-    public ResponseEntity<byte[]> getScript() throws IOException {
-        InputStream in=getClass().getResourceAsStream("/files/comment.js");
+    @GetMapping("/{script}.js")
+    public ResponseEntity<byte[]> getScript(@PathVariable("script")String script) throws IOException {
+        InputStream in=getClass().getResourceAsStream("/files/"+script+".js");
         return ResponseEntity
                 .ok()
                 .header(HttpHeaders.CONTENT_TYPE, "application/javascript")
