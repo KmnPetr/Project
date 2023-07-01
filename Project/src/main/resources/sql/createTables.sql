@@ -34,3 +34,11 @@ CREATE TABLE Dislikes_Person_Comment(
 );
 DROP TABLE Likes_Person_Comment;
 DROP TABLE Dislikes_Person_Comment;
+-- /////////////////////////////////////////
+CREATE TABLE Like_Actions_Person_Comment(
+    person_id int REFERENCES Person(id),
+    comment_id int REFERENCES Comments(id),
+    PRIMARY KEY (person_id,comment_id),
+    action varchar NOT NULL--в этом поле хранится значение "like" или "dislike"
+);
+DROP TABLE Like_Actions_Person_Comment;

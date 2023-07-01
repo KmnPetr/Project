@@ -4,6 +4,7 @@ package com.example.project.controllers;
 import com.example.project.dto.CommentDTO;
 import com.example.project.models.Comment;
 import com.example.project.services.CommentsService;
+import com.example.project.services.LikesService;
 import jakarta.validation.Valid;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,10 +18,12 @@ import java.util.List;
 @RequestMapping("/comment")
 public class CommentsController {
     private final CommentsService commentsService;
+    private final LikesService likesService;
     private final ModelMapper modelMapper;
     @Autowired
-    public CommentsController(CommentsService commentsService, ModelMapper modelMapper) {
+    public CommentsController(CommentsService commentsService, LikesService likesService, ModelMapper modelMapper) {
         this.commentsService = commentsService;
+        this.likesService = likesService;
         this.modelMapper = modelMapper;
     }
 
@@ -46,7 +49,10 @@ public class CommentsController {
     public void Liked(@RequestParam("type")String type,@RequestParam("id")int id){
         System.out.println("Пользователь поставил "+type+" к "+id+" коментарию.");
 
-        commentsService.updateLikes(type,id);
+//        commentsService.updateLikes(type,id);//TODO надо удалит связанный лишний код
+
+        likesService.saveLikeAction(id,type);
+        System.out.println("вставка лайка завершилась");
     }
 
     private CommentDTO convertToCommentDTO(Comment comment){
@@ -58,7 +64,8 @@ public class CommentsController {
                 comment.getCreated_at(),
                 comment.getOwner().getId(),
                 comment.getOwner().getUsername(),
-                comment.getOwner().getRole()
+                comment.getOwner().getRole()/*,
+                comment.getPeopleHaveLiked().*/
         );
     }
 }

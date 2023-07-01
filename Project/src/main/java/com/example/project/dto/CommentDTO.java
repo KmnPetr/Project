@@ -11,8 +11,9 @@ public class CommentDTO {
     private Integer owner_id;
     private String owner_name;
     private String owner_role;
+    private String likeStatus;
     public CommentDTO() {}
-    public CommentDTO(int id, String text, Integer count_likes, Integer count_dislikes, LocalDateTime created_at, Integer owner_id, String owner_name, String owner_role) {
+    public CommentDTO(int id, String text, Integer count_likes, Integer count_dislikes, LocalDateTime created_at, Integer owner_id, String owner_name, String owner_role/*,String likeStatus*/) {
         this.id = id;
         this.text = text;
         this.count_likes = count_likes;
@@ -20,7 +21,8 @@ public class CommentDTO {
         this.created_at = created_at;
         this.owner_id = owner_id;
         this.owner_name = owner_name;
-        this.owner_role = owner_role;
+        this.owner_role = owner_role;/*
+        this.likeStatus=likeStatus;*/
     }
     public int getId() {return id;}
     public void setId(int id) {this.id = id;}
@@ -38,8 +40,11 @@ public class CommentDTO {
     public void setOwner_name(String owner_name) {this.owner_name = owner_name;}
     public String getOwner_role() {return owner_role;}
     public void setOwner_role(String owner_role) {this.owner_role = owner_role;}
+    public String getLikeStatus() {return likeStatus;}
+    public void setLikeStatus(String likeStatus) {this.likeStatus = likeStatus;}
+
     @Override
     public String toString() {
-        return "CommentDTO:" + "\n\tid=" + id + "\n\ttext='" + text + '\'' + "\n\tcount_likes=" + count_likes + "\n\tcount_dislikes=" + count_dislikes + "\n\tcreated_at=" + created_at + "\n\towner_id=" + owner_id + "\n\towner_name='" + owner_name + '\'' + "\n\towner_role='" + owner_role + '\'';
+        return "CommentDTO:" + "\n\tid=" + id + "\n\ttext='" + text + '\'' + "\n\tcount_likes=" + count_likes + "\n\tcount_dislikes=" + count_dislikes + "\n\tcreated_at=" + created_at + "\n\towner_id=" + owner_id + "\n\towner_name='" + owner_name + '\'' + "\n\towner_role='" + owner_role + '\'' + "\n\tlikeStatus='" + likeStatus + '\'';
     }
 }
