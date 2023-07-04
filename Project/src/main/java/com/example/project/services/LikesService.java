@@ -23,11 +23,13 @@ public class LikesService {
         PersonDetails personDetails=(PersonDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         Person person=personDetails.getPerson();
         System.out.println("достали person "+ person);
-//        Comment comment=new Comment();
-//        comment.setId(comment_id);
-//        System.out.println("создали comment "+comment);
+
         if (action.equals("like")||action.equals("dislike")){
             likeRepository.save(new LikeAction(person.getId(),comment_id,action));
+            //hibernete сам разберется, существует ли уже действие like/dislike
+            // и при необходимости обновит с новым значением action
+            // или создаст новую запись
+            //удобненько.. да?
         }else{
             throw new IllegalArgumentException("parametr \"action\" should be equals\"like\" or \"dislike\"");
         }
