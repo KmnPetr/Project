@@ -9,17 +9,4 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface CommentsRepository extends JpaRepository<Comment,Integer> {
-    /**
-     * изменяет количество лайков
-     */
-    @Modifying
-    @Query("UPDATE Comment c SET c.count_likes = c.count_likes + 1 WHERE c.id = :id")
-    void updateCountLike(@Param("id") Long id);
-
-    /**
-     * изменяет количество дизлайков
-     */
-    @Modifying
-    @Query("UPDATE Comment c SET c.count_dislikes = c.count_dislikes + 1 WHERE c.id = :id")
-    void updateCountDislike(@Param("id") Long id);
 }

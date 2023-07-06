@@ -32,56 +32,9 @@ public class CommentsService {
 
         comment.setOwner(person);
         comment.setCreated_at(LocalDateTime.now());
-        comment.setCount_likes(0);
-        comment.setCount_dislikes(0);
 
         System.out.println("пришли данные "+comment);
 
         commentsRepository.save(comment);
-    }
-
-    /**
-     * метод реагирует на нажатие кнопок лайков и дизлайков
-     */
-    @Transactional
-    public void updateLikes(String type, int id) {
-        PersonDetails personDetails=(PersonDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        Person person=personDetails.getPerson();
-
-        switch (type) {
-            case "like":
-                commentsRepository.findById(id).ifPresent(it->{
-                    if (it.getPeopleHaveDisliked().contains(person)){
-                        //удалим запись, если person раньше дизлайкал запись
-                        it.getPeopleHaveDisliked().remove(person);
-                    }
-                    if (it.getPeopleHaveLiked().contains(person)) {
-                        //удалим запись, если person раньше лайкал запись
-                        it.getPeopleHaveLiked().remove(person);
-                    }else {
-                        //создадим лайк если все ок
-                        it.getPeopleHaveLiked().add(person);
-                    }
-                });
-                break;
-            case "dislike":
-                commentsRepository.findById(id).ifPresent(it->{
-                    if (it.getPeopleHaveLiked().contains(person)){
-                        //удалим запись, если person раньше лайкал запись
-                        it.getPeopleHaveLiked().remove(person);
-                    }
-                    if (it.getPeopleHaveDisliked().contains(person)) {
-                        //удалим запись, если person раньше дизлайкал запись
-                        it.getPeopleHaveDisliked().remove(person);
-                    }else {
-                        //создадим дизлайк если все ок
-                        it.getPeopleHaveDisliked().add(person);
-                    }
-                });
-
-                break;
-            default:
-                System.out.println("Некорректный тип");
-        }
     }
 }

@@ -19,10 +19,21 @@
             let commentText = document.createElement('p');commentText.textContent =comment.text;commentText.classList.add('comment_text');
             //создание кнопок лайков
             let count_likes = document.createElement('a');count_likes.innerText = ' '+comment.count_likes+' ';count_likes.classList.add('comment_like_number');
-            let likeImage = document.createElement('img');likeImage.src="/files/image/finger_up_green.png";likeImage.classList.add('likeImage');
+            let likeImage = document.createElement('img');
+            likeImage.classList.add('likeImage');
             let count_dislikes = document.createElement('a');count_dislikes.innerText = ' '+comment.count_dislikes+' ';count_dislikes.classList.add('comment_like_number');
-            let dislikeImage = document.createElement('img');dislikeImage.src="/files/image/finger_down_red.png";dislikeImage.classList.add('likeImage');
-
+            let dislikeImage = document.createElement('img');
+            dislikeImage.classList.add('likeImage');
+            if(comment.like_status==='like'){
+                likeImage.src="/files/image/finger_up_green.png";
+                dislikeImage.src="/files/image/finger_down_white.png";
+            }else if(comment.like_status==='dislike'){
+                likeImage.src="/files/image/finger_up_white.png";
+                dislikeImage.src="/files/image/finger_down_red.png";
+            }else {
+                likeImage.src="/files/image/finger_up_white.png";
+                dislikeImage.src="/files/image/finger_down_white.png";
+            }
 
 
             // Обработчик события при нажатии на кнопку "like"

@@ -19,13 +19,13 @@ public class LikeAction {
 //    @MapsId("commentId")//указывает на поле класса составного ключа
 //    @JoinColumn(name = "comment_id")
 //    private Comment comment;
-    @Column(name = "action")
-    private String action;
+    @Column(name = "type")
+    private String type;
 
     public LikeAction() {}
 
-    public LikeAction(Integer personId, Integer commentId, String action) {
-        this.action = action;
+    public LikeAction(Integer personId, Integer commentId, String type) {
+        this.type = type;
         this.id=new LikeActionId(personId,commentId);
     }
 
@@ -35,8 +35,8 @@ public class LikeAction {
 //    public void setPerson(Person person) {this.person = person;}
 //    public Comment getComment() {return comment;}
 //    public void setComment(Comment comment) {this.comment = comment;}
-    public String getAction() {return action;}
-    public void setAction(String action) {this.action = action;}
+    public String getType() {return type;}
+    public void setType(String type) {this.type = type;}
 
     @Override
     public String toString() {
@@ -44,7 +44,7 @@ public class LikeAction {
                 "\n\tid=" + id +/*
                 "\n\tperson=" + person +
                 "\n\tcomment=" + comment +*/
-                "\n\taction='" + action + '\'';
+                "\n\ttype='" + type + '\'';
     }
 
     @Embeddable

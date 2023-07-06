@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 
 @Service
 @Transactional(readOnly = true)
@@ -14,6 +16,10 @@ public class PeopleService {
     @Autowired
     public PeopleService(PeopleRepository peopleRepository) {
         this.peopleRepository = peopleRepository;
+    }
+
+    public List<Person> findAll() {
+        return peopleRepository.findAll();
     }
 
     /**
@@ -29,4 +35,5 @@ public class PeopleService {
     public void registr(Person person){
         peopleRepository.save(person);
     }
+
 }
