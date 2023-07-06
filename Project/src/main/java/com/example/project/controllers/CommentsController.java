@@ -50,18 +50,6 @@ public class CommentsController {
         }
         return commentDTO;
     }
-    @GetMapping("/{id}")
-    public CommentDTO getCommentById(@PathVariable("id")int id){
-
-        PersonDetails personDetails=(PersonDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        Person person=personDetails.getPerson();
-
-        return convertToCommentDTO(
-                commentsService.getCommentById(id),
-                likesService.getAllLikes(),
-                person
-        );
-    }
 
     @PostMapping("/create")
     public ResponseEntity<String> createComment(@Valid @RequestBody Comment comment) {
@@ -72,11 +60,19 @@ public class CommentsController {
     }
 
     @GetMapping("/like")
-    public void Liked(@RequestParam("type")String type,@RequestParam("id")int id){
-        System.out.println("Пользователь поставил "+type+" к "+id+" коментарию.");
-
+    public CommentDTO Liked(@RequestParam("type")String type,@RequestParam("id")int id){
+        //вносим изменения в БД
         likesService.saveLikeAction(id,type);
-        System.out.println("вставка лайка завершилась");
+
+        //отдаем обновленный commentDTO
+        PersonDetails personDetails=(PersonDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Person person=personDetails.getPerson();
+
+        return convertToCommentDTO(
+                commentsService.getCommentById(id),
+                likesService.getAllLikes(),
+                person
+        );
     }
 
     private CommentDTO convertToCommentDTO(Comment comment,

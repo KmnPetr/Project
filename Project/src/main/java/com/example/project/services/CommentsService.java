@@ -34,8 +34,6 @@ public class CommentsService {
         comment.setOwner(person);
         comment.setCreated_at(LocalDateTime.now());
 
-        System.out.println("пришли данные "+comment);
-
         commentsRepository.save(comment);
     }
 
