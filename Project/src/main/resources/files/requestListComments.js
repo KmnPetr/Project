@@ -6,7 +6,7 @@
             .catch(error => console.log(error));
     }
 
-    // Функция для отображения комментариев в списке
+    // Функция для отображения списка комментариев
     function displayComments(comments) {
         const commentList = document.getElementById('comment-list');
 
@@ -83,4 +83,8 @@
             commentList.appendChild(dislikeImage);
             commentList.appendChild(document.createElement('hr'));
         });
+    }
+    function updateComment(id) {
+        const request=new XMLHttpRequest();
+        request.open('GET','/comment/')
     }

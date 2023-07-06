@@ -50,6 +50,18 @@ public class CommentsController {
         }
         return commentDTO;
     }
+    @GetMapping("/{id}")
+    public CommentDTO getCommentById(@PathVariable("id")int id){
+
+        PersonDetails personDetails=(PersonDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Person person=personDetails.getPerson();
+
+        return convertToCommentDTO(
+                commentsService.getCommentById(id),
+                likesService.getAllLikes(),
+                person
+        );
+    }
 
     @PostMapping("/create")
     public ResponseEntity<String> createComment(@Valid @RequestBody Comment comment) {

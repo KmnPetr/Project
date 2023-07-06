@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional(readOnly = true)
@@ -36,5 +37,11 @@ public class CommentsService {
         System.out.println("пришли данные "+comment);
 
         commentsRepository.save(comment);
+    }
+
+    public Comment getCommentById(int id) {
+        Comment comment=commentsRepository.findById(id).orElse(null);
+        if(comment==null)throw new IllegalArgumentException("comment with id "+id+" not found");
+        return comment;
     }
 }
