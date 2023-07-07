@@ -1,11 +1,12 @@
 package com.example.project.dto;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public class CommentDTO {
     private int id;
     private String text;
-    private LocalDateTime created_at;
+    private LocalDate created_at;
     private Integer owner_id;
     private String owner_name;
     private String owner_role;
@@ -16,7 +17,7 @@ public class CommentDTO {
 
     public CommentDTO(int id,
                       String text,
-                      LocalDateTime created_at,
+                      LocalDate created_at,
                       Integer owner_id,
                       String owner_name,
                       String owner_role,
@@ -38,8 +39,8 @@ public class CommentDTO {
     public void setId(int id) {this.id = id;}
     public String getText() {return text;}
     public void setText(String text) {this.text = text;}
-    public LocalDateTime getCreated_at() {return created_at;}
-    public void setCreated_at(LocalDateTime created_at) {this.created_at = created_at;}
+    public LocalDate getCreated_at() {return created_at;}
+    public void setCreated_at(LocalDate created_at) {this.created_at = created_at;}
     public Integer getOwner_id() {return owner_id;}
     public void setOwner_id(Integer owner_id) {this.owner_id = owner_id;}
     public String getOwner_name() {return owner_name;}

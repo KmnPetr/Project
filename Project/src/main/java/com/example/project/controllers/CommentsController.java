@@ -9,6 +9,7 @@ import com.example.project.security.PersonDetails;
 import com.example.project.services.CommentsService;
 import com.example.project.services.LikesService;
 import com.example.project.services.PeopleService;
+import com.example.project.util.SomeEnams;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -78,22 +79,29 @@ public class CommentsController {
     private CommentDTO convertToCommentDTO(Comment comment,
                                            List<LikeAction>likes,
                                            Person person){
+        String username;
+        //TODO необходимо зарезервировать логин "Ваш комментарий:"
+       if(comment.getOwner().getUsername().equals(person.getUsername()))username= SomeEnams.RESERVED_LOGIN.getValue();
+       else username= person.getUsername();
+
+
+
         return new CommentDTO(
                 comment.getId(),
                 comment.getText(),
-                comment.getCreated_at(),
+                comment.getCreated_at().toLocalDate(),
                 comment.getOwner().getId(),
-                comment.getOwner().getUsername(),
+                username,
                 comment.getOwner().getRole(),
                 likes.stream()
                         .filter(it -> it.getId().getPersonId()== person.getId()&&it.getId().getCommentId()==comment.getId())
                         .findFirst().map(LikeAction::getType)
                         .orElse(null),
                 (int)likes.stream().filter(it->
-                        it.getId().getCommentId()==comment.getId()&&it.getType().equals("like")
+                        it.getId().getCommentId()==comment.getId()&&it.getType().equals(SomeEnams.LIKE.getValue())
                 ).count(),
                 (int)likes.stream().filter(it->
-                        it.getId().getCommentId()==comment.getId()&&it.getType().equals("dislike")
+                        it.getId().getCommentId()==comment.getId()&&it.getType().equals(SomeEnams.DISLIKE.getValue())
                 ).count()
         );
     }

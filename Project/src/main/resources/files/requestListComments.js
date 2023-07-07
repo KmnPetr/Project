@@ -9,9 +9,14 @@
     // Функция для отображения списка комментариев
     function displayComments(comments) {
         const commentList = document.getElementById('comment-list');
-
-        // Очистка списка перед добавлением новых элементов
         commentList.innerHTML = '';
+
+        comments.sort((a, b)=>{
+            if (a.owner_name==='Ваш комментарий:'&&b.owner_name==='Ваш комментарий:')return b.count_likes-a.count_likes;
+            else if (a.owner_name==='Ваш комментарий:')return -1;
+            else if (b.owner_name==='Ваш комментарий:')return 1;
+            else return b.count_likes-a.count_likes;
+        });
 
         // Итерация по каждому комментарию и добавление его в список
         comments.forEach(comment => {
