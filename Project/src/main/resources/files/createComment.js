@@ -6,7 +6,7 @@ var sendCommentObject={
                     event.preventDefault(); // Отменяем стандартное поведение формы
 
                     // Получаем значение введенного текста
-                    var comment = document.getElementById('commentInput').value;
+                    var comment = document.getElementById('commentInput');
 
                     // Создаем AJAX-запрос для отправки данных на сервер
                     var request = new XMLHttpRequest();
@@ -19,7 +19,8 @@ var sendCommentObject={
                             console.log('status 200');
                             console.log(request.responseText);
                             //очищаем поле
-                            document.getElementById('commentInput').value='';
+                            comment.value='';
+                            comment.style.height='auto';
                             //обновляем список комментов
                             fetchComments();
                         } else {
@@ -29,8 +30,13 @@ var sendCommentObject={
                     };
 
                     // Отправляем данные на сервер
-                    request.send(JSON.stringify({text: comment}));
+                    request.send(JSON.stringify({text: comment.value}));
                 });
     }
-
+}
+function chengeSize() {
+    const textarea = document.getElementById('commentInput');
+    textarea.addEventListener('input', function() {
+        this.style.height = 'auto';
+        this.style.height = this.scrollHeight + 'px';});
 }

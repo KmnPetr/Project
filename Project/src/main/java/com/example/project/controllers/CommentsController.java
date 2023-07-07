@@ -76,33 +76,45 @@ public class CommentsController {
         );
     }
 
+    @DeleteMapping("/delete/{id}")
+    public void deleteComment(@PathVariable("id")int id){
+        commentsService.delete(id);
+    }
+
     private CommentDTO convertToCommentDTO(Comment comment,
                                            List<LikeAction>likes,
                                            Person person){
         String username;
         //TODO необходимо зарезервировать логин "Ваш комментарий:"
-       if(comment.getOwner().getUsername().equals(person.getUsername()))username= SomeEnams.RESERVED_LOGIN.getValue();
-       else username= person.getUsername();
-
-
+       if(comment.getOwner().getUsername().equals(person.getUsername()))
+           username=SomeEnams.RESERVED_LOGIN.getValue();
+       else
+           username= comment.getOwner().getUsername();
 
         return new CommentDTO(
                 comment.getId(),
                 comment.getText(),
-                comment.getCreated_at().toLocalDate(),
+                comment.getCreated_at(),
                 comment.getOwner().getId(),
                 username,
                 comment.getOwner().getRole(),
                 likes.stream()
-                        .filter(it -> it.getId().getPersonId()== person.getId()&&it.getId().getCommentId()==comment.getId())
+                        .filter(it -> it.getId().getPersonId()== person.getId()
+                                && it.getId().getCommentId()==comment.getId())
                         .findFirst().map(LikeAction::getType)
                         .orElse(null),
-                (int)likes.stream().filter(it->
-                        it.getId().getCommentId()==comment.getId()&&it.getType().equals(SomeEnams.LIKE.getValue())
-                ).count(),
-                (int)likes.stream().filter(it->
-                        it.getId().getCommentId()==comment.getId()&&it.getType().equals(SomeEnams.DISLIKE.getValue())
-                ).count()
+                (int)likes.stream()
+                        .filter(it->
+                        it.getId().getCommentId()==comment.getId()
+                                && it.getType().equals(SomeEnams.LIKE.getValue())
+                        )
+                        .count(),
+                (int)likes.stream()
+                        .filter(it->
+                        it.getId().getCommentId()==comment.getId()
+                                && it.getType().equals(SomeEnams.DISLIKE.getValue())
+                        )
+                        .count()
         );
     }
 }

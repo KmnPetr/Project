@@ -28,12 +28,14 @@ public class PersonValidator implements Validator {
 
     /**
      * метод делает запрос в БД, существует ли Person c таким email
+     * или не соответствует ли username зарезервированному логину
      * если да, то кладет ошибку
      */
     @Override
     public void validate(Object target, Errors errors) {
         Person person=(Person)target;
-        if(personService.findByUsername(person.getUsername())!=null)
+
+        if(personService.findByUsername(person.getUsername())!=null || person.getUsername().equals(SomeEnams.RESERVED_LOGIN.getValue()))
             errors.rejectValue("username"/*на каком поле*/,
                     "",
                     "This username is already taken."/*сообщение*/);

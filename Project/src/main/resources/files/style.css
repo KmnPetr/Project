@@ -23,13 +23,36 @@ a{
     justify-content: center;
     height: 100vh;
 }
-.comment_info{
+#commentInput{
+    width: 50vh;
+    font-style: italic;
+}
+#buttonSendComment{
+    margin-left: 10px;
+    font-style: italic;
+    background-color: #69a8a6;
+}
+.comment_send{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+.comment_info_owner{
     color: lightgray;
     font-size: 12px;
+    float: left;
+}
+.comment_info_date{
+    color: lightgray;
+    font-size: 12px;
+    float: right;
 }
 .comment_text{
+    clear: both;
     font-style: normal;
     color: black;
+    word-break: break-word;
 }
 .comment_like_number{
     font-style: normal;
@@ -41,4 +64,23 @@ a{
 .likeImage{
     cursor: pointer;
     height: 20px;
+    margin-right: 20px;
+}
+.remove{
+    cursor: pointer;
+    color: lightgray;
+    font-size: 12px;
+}
+#comment-list {
+    margin-left: 10%;
+    margin-right: 10%;
+    height: 60vh;
+    overflow: auto;
+    border-radius: 10px;
+    padding: 20px;
+    background-color: rgb(255, 255, 255,0.5);
+}
+div::-webkit-scrollbar {
+    width: 0.0em;
+    background-color: transparent;
 }

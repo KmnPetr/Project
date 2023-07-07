@@ -24,8 +24,6 @@ public class LikesService {
 
     @Transactional
     public void saveLikeAction(int comment_id,String type){
-        System.out.println("method saveLikeAction start");
-
         PersonDetails personDetails=(PersonDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         Person person=personDetails.getPerson();
 
@@ -46,7 +44,6 @@ public class LikesService {
         }else{
             throw new IllegalArgumentException("parametr \"type\" should be equals\""+SomeEnams.LIKE.getValue()+"\" or \""+SomeEnams.DISLIKE.getValue()+"\"");
         }
-        System.out.println("method saveLikeAction end");
     }
 
     public List<LikeAction> getAllLikes() {

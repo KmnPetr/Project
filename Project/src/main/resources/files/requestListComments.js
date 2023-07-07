@@ -29,15 +29,18 @@
         });
     }
     function collectDiv(div,comment) {
-        let ownerAndDate=document.createElement('p');ownerAndDate.textContent=comment.owner_name+' '+comment.created_at;ownerAndDate.classList.add('comment_info');
+        let divInfo=document.createElement('div');
+        let owner=document.createElement('p');owner.textContent=comment.owner_name;owner.classList.add('comment_info_owner');
+        let date=document.createElement('p');date.textContent=comment.created_at;date.classList.add('comment_info_date');
+            divInfo.appendChild(owner);
+            divInfo.appendChild(date);
+        // let ownerAndDate=document.createElement('p');ownerAndDate.textContent=comment.owner_name+' '+comment.created_at;ownerAndDate.classList.add('comment_info');
         let commentText = document.createElement('p');commentText.textContent =comment.text;commentText.classList.add('comment_text');
         //создание кнопок лайков
         let count_likes = document.createElement('a');count_likes.innerText = ' '+comment.count_likes+' ';count_likes.classList.add('comment_like_number');
-        let likeImage = document.createElement('img');
-        likeImage.classList.add('likeImage');
+        let likeImage = document.createElement('img');likeImage.classList.add('likeImage');
         let count_dislikes = document.createElement('a');count_dislikes.innerText = ' '+comment.count_dislikes+' ';count_dislikes.classList.add('comment_like_number');
-        let dislikeImage = document.createElement('img');
-        dislikeImage.classList.add('likeImage');
+        let dislikeImage = document.createElement('img');dislikeImage.classList.add('likeImage');
         if(comment.like_status==='like'){
             likeImage.src="/files/image/finger_up_green.png";
             dislikeImage.src="/files/image/finger_down_white.png";
@@ -48,8 +51,6 @@
             likeImage.src="/files/image/finger_up_white.png";
             dislikeImage.src="/files/image/finger_down_white.png";
         }
-
-
         // Обработчик события при нажатии на кнопку "like"
         likeImage.addEventListener('click', () => {
             const request = new XMLHttpRequest();
@@ -97,11 +98,38 @@
             request.send();
         });
 
-        div.appendChild(ownerAndDate);
+        //кнопка на удаление коммента
+        let remove;
+        if (comment.owner_name==='Ваш комментарий:'){
+            remove=document.createElement('a');remove.innerText='Удалить';remove.classList.add('remove');
+            remove.addEventListener('click', () => {
+                const request = new XMLHttpRequest();
+                request.open('DELETE', `/comment/delete/${comment.id}`);
+                request.onload = function() {
+                    if (request.status === 200) {
+                        console.log('Успешный запрос');
+                        fetchComments();
+                    } else {
+                        console.log('Не удалось выполнить запрос');
+                        console.log(request.responseText);
+                    }
+                };
+                request.onerror = function() {
+                    console.log('Произошла ошибка сети');
+                };
+                request.send();
+            });
+        }
+
+        div.appendChild(divInfo);
+        div.appendChild(document.createElement('br'));
         div.appendChild(commentText);
         div.appendChild(count_likes);
         div.appendChild(likeImage);
         div.appendChild(count_dislikes);
         div.appendChild(dislikeImage);
+        if (comment.owner_name==='Ваш комментарий:'){
+            div.appendChild(remove);
+        }
         div.appendChild(document.createElement('hr'));
     }

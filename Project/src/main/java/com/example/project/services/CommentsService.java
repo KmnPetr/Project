@@ -9,9 +9,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @Transactional(readOnly = true)
@@ -32,7 +31,7 @@ public class CommentsService {
         Person person=personDetails.getPerson();
 
         comment.setOwner(person);
-        comment.setCreated_at(LocalDateTime.now());
+        comment.setCreated_at(LocalDate.now());
 
         commentsRepository.save(comment);
     }
@@ -41,5 +40,16 @@ public class CommentsService {
         Comment comment=commentsRepository.findById(id).orElse(null);
         if(comment==null)throw new IllegalArgumentException("comment with id "+id+" not found");
         return comment;
+    }
+
+    @Transactional
+    public void delete(int id) {
+        PersonDetails personDetails=(PersonDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Person person=personDetails.getPerson();
+        Comment comment=commentsRepository.findById(id).orElse(null);
+        if(comment!=null&&person.getId()==comment.getOwner().getId())
+            commentsRepository.deleteById(id);
+        else
+            throw new IllegalArgumentException("Попытка удалить чужой или несуществующий коммент");
     }
 }

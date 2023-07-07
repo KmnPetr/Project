@@ -4,36 +4,41 @@
     <meta charset="UTF-8">
     <title>Title</title>
     <link rel="stylesheet" href="/files/style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <script src="/files/requestListComments.js"></script>
     <script src="/files/createComment.js"></script>
     <style>
         body{
-            background: darkgoldenrod;
+            background-image: url("/files/image/5.jpg");
         }
     </style>
 </head>
-
 <body>
 
-<h1 style="font-size: 50px">Comment page!</h1>
+    <h1 style="font-size: 50px">Comment page!</h1>
+    <p style="text-align: center;">Здесь вы можете оставить комментарий к этому проекту.
+        <br/> Пожелания для развития функционала, замечания об ошибках и другое.. </p>
 
-<br/><hr/><br/>
+    <hr/>
 
+    <form id="commentForm" class="comment_send">
 
+        <textarea
+                rows="1"
+                id="commentInput"
+                placeholder="Введите комментарий"
+                required></textarea>
+        <button id="buttonSendComment" type="submit">Добавить</button>
+        <script>
+            sendCommentObject.init();
+            chengeSize();
+        </script>
+    </form>
 
-<form id="commentForm">
-    <input type="text" id="commentInput" placeholder="Введите комментарий" required>
-    <button type="submit">Отправить</button>
-</form>
-<script>sendCommentObject.init()</script>
+    <hr/>
 
+    <div id="comment-list">
+        <script>fetchComments();</script>
+    </div>
 
-
-<br/><hr/><br/>
-
-<div id="comment-list">
-    <script>fetchComments();</script>
-</div>
 </body>
 </html>
