@@ -4,6 +4,7 @@ body {
     background-repeat: no-repeat;
     background-position: center;
 }
+a:link {color: #6a6aff;}  a:visited {color: #6a6aff;}  a:hover {color: rgb(3, 250, 255);}  a:active {color: red;}
 h1{
     font-size: 30px;
     text-align:center;

@@ -8,6 +8,12 @@
         body{
             background-image: url("/files/image/4.jpg");
         }
+        .btn {
+            transition: transform 0.2s;
+        }
+        .btn:hover {
+            transform: scale(1.1);
+        }
     </style>
 </head>
 <body>
@@ -22,13 +28,16 @@
     <p style="text-align: center; font-size: 20px;">
         Пока довольно пусто..
         <br/>но как можно заметить, security уже настроено.
+        <br/>Также можно, если не затруднит, можете оставить замечание к этому проекту на странице комментариев (кнопка для перехода ниже).
+        <br/>
         <br/>Позже могут появиться дополнительные функции, если у местного кодера появиться достаточно времени:)
         <br/>
         <br/>Если интерестно, исходный код проекта <a href="https://github.com/KmnPetr/Project/tree/main/Project" target="_blank">здесь</a>..
     </p>
     <br/>
     <hr/>
-    <p><a href="/home/comment">На страницу комментариев</a></p>
+
+    <a href="/home/comment"><img class="btn" src="/files/image/buttonComments.png" height="80px"/></a>
 </div>
 
 </body>
