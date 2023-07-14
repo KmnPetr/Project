@@ -2,7 +2,7 @@ FROM openjdk:17
 
 VOLUME /app
 
-EXPOSE 80
+#EXPOSE 80
 
 ARG JAR_FILE=target/*.jar
 
