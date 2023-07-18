@@ -23,4 +23,10 @@ public class ProjectApplication {
 	}
 
 	//тест мержа ветка new-features
+	//тест мержа ветка new-features
+	//тест мержа ветка new-features
+	//тест мержа ветка new-features
+	//тест мержа ветка new-features
+	//тест мержа ветка new-features
+	//тест мержа ветка new-features
 }
