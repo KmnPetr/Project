@@ -23,3 +23,4 @@ CREATE TABLE Like_Actions_Person_Comment(
     PRIMARY KEY (person_id,comment_id),
     type varchar NOT NULL--в этом поле хранится значение "like" или "dislike"
 );
+DROP TABLE Like_Actions_Person_Comment;
