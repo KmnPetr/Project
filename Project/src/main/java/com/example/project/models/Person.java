@@ -5,7 +5,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
 import java.time.LocalDateTime;
-import java.util.List;
+
 import java.util.Objects;
 
 @Entity
@@ -31,6 +31,14 @@ public class Person {
 //    private List<Comment> comments;
 
     public Person() {}
+
+    public Person(int id, String username, String password, String role, LocalDateTime createdAt) {
+        this.id = id;
+        this.username = username;
+        this.password = password;
+        this.role = role;
+        this.createdAt = createdAt;
+    }
 
     public int getId() {return id;}
     public void setId(int id) {this.id = id;}

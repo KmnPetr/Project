@@ -24,6 +24,14 @@ public class Comment {
     @ManyToOne
     @JoinColumn(name = "owner_id",referencedColumnName = "id")
     private Person owner;
+    public Comment() {}
+
+    public Comment(int id, String text, LocalDate created_at, Person owner) {
+        this.id = id;
+        this.text = text;
+        this.created_at = created_at;
+        this.owner = owner;
+    }
 
     public int getId() {return id;}
     public void setId(int id) {this.id = id;}
