@@ -16,12 +16,14 @@ public class ProjectApplication {
 		SpringApplication.run(ProjectApplication.class, args);
 	}
 
+	//строка для теста мержа веток main
+
+
 	//это для перемапивания DTO
 	@Bean
 	public ModelMapper modelMapper(){
 		return new ModelMapper();
 	}
 
-	//строка для теста мержа веток main
-	//тест мержа ветка new-features
+	//тест мержа веткаветкаветкаветка new-features
 }
