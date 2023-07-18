@@ -22,6 +22,6 @@ public class ProjectApplication {
 		return new ModelMapper();
 	}
 
-
 	//строка для теста мержа веток main
+	//тест мержа ветка new-features
 }
