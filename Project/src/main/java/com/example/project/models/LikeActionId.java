@@ -15,9 +15,7 @@ public class LikeActionId implements Serializable {
     @Column(name = "comment_id")
     private Integer commentId;
 
-    public LikeActionId() {
-    }
-
+    public LikeActionId() {}
     public LikeActionId(Integer personId, Integer commentId) {
         this.personId = personId;
         this.commentId = commentId;

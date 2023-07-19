@@ -1,7 +1,6 @@
 package com.example.project.dto;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 public class CommentDTO {
     private int id;
@@ -10,7 +9,9 @@ public class CommentDTO {
     private Integer owner_id;
     private String owner_name;
     private String owner_role;
-    private String like_status;//нужен для отображения конкретному пользователю лайкал ли он ранее конкретный комент
+
+    //нужен для отображения конкретному пользователю лайкал ли он ранее конкретный комент("like","dislike",null)
+    private String like_status;
     private Integer count_likes;
     private Integer count_dislikes;
     public CommentDTO() {}
@@ -48,7 +49,7 @@ public class CommentDTO {
     public String getOwner_role() {return owner_role;}
     public void setOwner_role(String owner_role) {this.owner_role = owner_role;}
     public String getLike_status() {return like_status;}
-    public void setLike_status(String likeStatus) {this.like_status = like_status;}
+    public void setLike_status(String like_status) {this.like_status = like_status;}
     public Integer getCount_likes() {return count_likes;}
     public void setCount_likes(Integer count_likes) {this.count_likes = count_likes;}
     public Integer getCount_dislikes() {return count_dislikes;}
