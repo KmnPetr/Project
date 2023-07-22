@@ -1,24 +1,38 @@
 package com.example.project.controllers;
 
-import com.example.project.models.Person;
-import com.example.project.security.PersonDetails;
-import org.springframework.security.core.context.SecurityContextHolder;
+import jakarta.servlet.http.HttpServletRequest;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.security.Principal;
+
 @Controller
 @RequestMapping("/home")
 public class HomeController {
+/////////////////////////////////////////////////////////////
+    private final HttpServletRequest httpServletRequest;
+    @Autowired
+    public HomeController(HttpServletRequest httpServletRequest) {
+        this.httpServletRequest = httpServletRequest;
+    }
+
+    ///////////////////////////////////////////////////////
     /**
      * выдает первую домашнюю страницу после успешной аутентификации
      */
     @GetMapping()
     public String homePage(Model model){
-        PersonDetails personDetails=(PersonDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        Person person=personDetails.getPerson();
-        model.addAttribute("username",person.getUsername());
+        ////////////////////////////////////////
+        Principal principal = httpServletRequest.getUserPrincipal();
+        String username = principal.getName();
+        System.out.println(username);
+        model.addAttribute("username",principal.getName());
+        ///////////////////////////////////////////
+//        PersonDetails personDetails=(PersonDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+//        model.addAttribute("username",personDetails.getUsername());
 
         return "home/home";
     }
