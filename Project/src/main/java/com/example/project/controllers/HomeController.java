@@ -12,25 +12,20 @@ import java.security.Principal;
 @Controller
 @RequestMapping("/home")
 public class HomeController {
-/////////////////////////////////////////////////////////////
     private final HttpServletRequest httpServletRequest;
     @Autowired
     public HomeController(HttpServletRequest httpServletRequest) {
         this.httpServletRequest = httpServletRequest;
     }
 
-    ///////////////////////////////////////////////////////
     /**
      * выдает первую домашнюю страницу после успешной аутентификации
      */
     @GetMapping()
     public String homePage(Model model){
-        ////////////////////////////////////////
         Principal principal = httpServletRequest.getUserPrincipal();
-        String username = principal.getName();
-        System.out.println(username);
         model.addAttribute("username",principal.getName());
-        ///////////////////////////////////////////
+
 //        PersonDetails personDetails=(PersonDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 //        model.addAttribute("username",personDetails.getUsername());
 
