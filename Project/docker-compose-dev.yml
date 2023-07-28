@@ -1,6 +1,7 @@
 #   этот вариант файла предназначен для хранения в публичном репозитории git
 #   перед запуском добавить пароль БД идентичный в файле application.properties
-#   команда запуска docker-compose -f docker-compose(withoutPass).yml up -d
+#   email и имя хоста в certbot
+#   команда запуска docker-compose -f docker-compose-dev.yml up -d
 version: "3.5"
 services:
   project_app:
@@ -13,18 +14,6 @@ services:
     depends_on:
       - progect_database
 
-  ngnix:
-    image: nginx:latest
-    restart: always
-    ports:
-      - 80:80
-    volumes:
-      - 'nginx:/usr/share/nginx/html'
-      - 'nginx_conf:/etc/nginx/conf.d'
-    networks:
-      - project_net
-    depends_on:
-      - project_app
 
   progect_database:
     image: postgres:14.3-alpine
@@ -32,16 +21,28 @@ services:
     ports:
       - 5432:5432
     environment:
-      - POSTGRES_PASSWORD=
-      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=<password>
+      - POSTGRES_USER=<user>
     networks:
       - project_net
     volumes:
       - 'progect_database:/var/lib/postgresql/data'
 
+  ngnix:
+    image: nginx:1.20-alpine
+    restart: always
+    ports:
+      - 80:80
+      - 443:443
+    volumes:
+      - '/home/nginx-src:/etc/nginx/conf.d/'
+    networks:
+      - project_net
+    depends_on:
+      - project_app
+
+
 volumes:
-  nginx:
-  nginx_conf:
   progect_database:
 
 networks:

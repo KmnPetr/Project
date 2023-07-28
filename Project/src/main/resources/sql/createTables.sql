@@ -6,7 +6,6 @@ CREATE TABLE Person(
     created_at timestamp NOT NULL
 );
 
-UPDATE Person SET role='ROLE_ADMIN' WHERE id=1;
 
 -- /////////////////////////////////////////////
 
@@ -23,4 +22,3 @@ CREATE TABLE Like_Actions_Person_Comment(
     PRIMARY KEY (person_id,comment_id),
     type varchar NOT NULL--в этом поле хранится значение "like" или "dislike"
 );
-DROP TABLE Like_Actions_Person_Comment;

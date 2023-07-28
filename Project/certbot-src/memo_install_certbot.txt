@@ -1,0 +1,8 @@
+apt install certbot python3-certbot-nginx
+certbot --nginx -d 598224.cloud4box.ru --register-unsafely-without-email
+
+бот создаст файлы,к которым надо будет указать путь серверу:
+/etc/letsencrypt/live/<domen_name>/fullchain.pem (ssl_certificate)
+/etc/letsencrypt/live/<domen_name>/privkey.pem (ssl_certificate_key)
+/etc/letsencrypt/options-ssl-nginx.conf (include)
+/etc/letsencrypt/ssl-dhparams.pem (ssl_dhparam)
