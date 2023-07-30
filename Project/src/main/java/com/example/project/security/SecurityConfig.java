@@ -28,13 +28,14 @@ public class SecurityConfig {
                             "/hello",
                             "/auth/login",
                             "/auth/registration",
+                            "auth/guest_registration",
                             "/error?continue",
                             "/files/**"
                     ).permitAll();//для открытых форм
                     auth.requestMatchers(
                             "/auth/succesRegistPage",
                             "/home/**",
-                            "/comment/**").hasAnyRole("USER","ADMIN");
+                            "/comment/**").hasAnyRole("GUEST","USER","ADMIN");
 //                    auth.requestMatchers("/admin").hasRole("ADMIN");
                 })
                 .formLogin(it-> {
@@ -45,7 +46,7 @@ public class SecurityConfig {
                 })
                 .logout(it->{
                     it.logoutUrl("/logout");
-                    it.logoutSuccessUrl("/auth/login");//сюда его перенаправит после логаута
+                    it.logoutSuccessUrl("/hello");//сюда его перенаправит после логаута
                 })
 //                .sessionManagement(it->it.sessionCreationPolicy(SessionCreationPolicy.STATELESS))//отключение сессий нужна при jwt
                 .build();

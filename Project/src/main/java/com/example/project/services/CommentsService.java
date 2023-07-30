@@ -4,11 +4,13 @@ import com.example.project.models.Comment;
 import com.example.project.models.Person;
 import com.example.project.repositories.CommentsRepository;
 import com.example.project.security.PersonDetails;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.security.Principal;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -16,9 +18,11 @@ import java.util.List;
 @Transactional(readOnly = true)
 public class CommentsService {
     private final CommentsRepository commentsRepository;
+    private final HttpServletRequest httpServletRequest;
     @Autowired
-    public CommentsService(CommentsRepository commentsRepository) {
+    public CommentsService(CommentsRepository commentsRepository, HttpServletRequest httpServletRequest) {
         this.commentsRepository = commentsRepository;
+        this.httpServletRequest = httpServletRequest;
     }
 
     public List<Comment> getAllComments(){
@@ -43,6 +47,17 @@ public class CommentsService {
     }
 
     @Transactional
+    public void update(Comment comment) {
+        System.out.println("проверка владельца");
+        Comment checkComment=commentsRepository.findById(comment.getId()).orElse(null);
+        Principal principal = httpServletRequest.getUserPrincipal();
+        if (checkComment!=null && checkComment.getOwner().getUsername().equals(principal.getName())){
+            System.out.println("обновление");
+            commentsRepository.updateCommentById(comment.getText(),comment.getId());
+        }
+    }
+
+    @Transactional
     public void delete(int id) {
         PersonDetails personDetails=(PersonDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         Person person=personDetails.getPerson();
@@ -52,4 +67,5 @@ public class CommentsService {
         else
             throw new IllegalArgumentException("Попытка удалить чужой или несуществующий коммент");
     }
+
 }

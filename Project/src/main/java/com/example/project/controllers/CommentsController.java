@@ -76,6 +76,14 @@ public class CommentsController {
         );
     }
 
+    @PostMapping("/update")
+    public ResponseEntity<String> updateComment(@RequestBody Comment comment){
+
+        commentsService.update(comment);
+
+        return ResponseEntity.ok("Комментарий обновлен");
+    }
+
     @DeleteMapping("/delete/{id}")
     public void deleteComment(@PathVariable("id")int id){
         commentsService.delete(id);

@@ -13,7 +13,7 @@ echo "//////////////////Сборка образа 'kmnpetr/project'/////////////
 docker build -t kmnpetr/project .
 
 echo "//////////////////Push образа 'kmnpetr/project' на dockerhub///////////////////////////"
-docker push kmnpetr/project:latest
+docker push kmnpetr/project
 
 echo "//////////////////Подготовка сервера./////////////////////////////////////////"
 ssh  root@$remote_ip  << EOF

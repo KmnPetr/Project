@@ -83,4 +83,12 @@ public class AuthController {
         System.out.println("method auth/succesRegistPage called");
         return "auth/succesRegistPage";
     }
+
+    @GetMapping("guest_registration")
+    public String guestRegistrationAndGoHomePage(HttpServletRequest request)
+    {
+        peopleService.registrGuest(request);
+
+        return "redirect:/home";
+    }
 }

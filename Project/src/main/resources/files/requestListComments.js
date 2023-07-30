@@ -98,10 +98,15 @@
             request.send();
         });
 
-        //кнопка на удаление коммента
+        //кнопки на edit и remove коммента
+        let edit;
         let remove;
         if (comment.owner_name==='Ваш комментарий:'){
-            remove=document.createElement('a');remove.innerText='Удалить';remove.classList.add('remove');
+            edit=document.createElement('a');edit.innerText='Редактировать';edit.classList.add('editAndRemove');
+            remove=document.createElement('a');remove.innerText='Удалить';remove.classList.add('editAndRemove');
+            edit.addEventListener('click',()=>{
+                editComment(comment);
+            })
             remove.addEventListener('click', () => {
                 const request = new XMLHttpRequest();
                 request.open('DELETE', `/comment/delete/${comment.id}`);
@@ -129,6 +134,7 @@
         div.appendChild(count_dislikes);
         div.appendChild(dislikeImage);
         if (comment.owner_name==='Ваш комментарий:'){
+            div.appendChild(edit);
             div.appendChild(remove);
         }
         div.appendChild(document.createElement('hr'));

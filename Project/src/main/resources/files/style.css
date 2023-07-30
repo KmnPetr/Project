@@ -67,10 +67,11 @@ a{
     height: 20px;
     margin-right: 20px;
 }
-.remove{
+.editAndRemove{
     cursor: pointer;
     color: lightgray;
     font-size: 12px;
+    margin-right: 20px;
 }
 #comment-list {
     margin-left: 10%;
