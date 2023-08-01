@@ -1,6 +1,7 @@
 package com.example.project.controllers;
 
 
+import com.example.project.aop.Visitor;
 import com.example.project.dto.CommentDTO;
 import com.example.project.models.Comment;
 import com.example.project.models.LikeAction;
@@ -52,6 +53,7 @@ public class CommentsController {
         return commentDTO;
     }
 
+    @Visitor(value = "create comment")
     @PostMapping("/create")
     public ResponseEntity<String> createComment(@Valid @RequestBody Comment comment) {
 
@@ -60,6 +62,7 @@ public class CommentsController {
         return ResponseEntity.ok("Комментарий создан");
     }
 
+    @Visitor(value = "like,dislike")
     @GetMapping("/like")
     public CommentDTO Liked(@RequestParam("type")String type,@RequestParam("id")int id){
         //вносим изменения в БД
@@ -76,6 +79,7 @@ public class CommentsController {
         );
     }
 
+    @Visitor(value = "update comment")
     @PostMapping("/update")
     public ResponseEntity<String> updateComment(@RequestBody Comment comment){
 
@@ -84,6 +88,8 @@ public class CommentsController {
         return ResponseEntity.ok("Комментарий обновлен");
     }
 
+
+    @Visitor(value = "delete comment")
     @DeleteMapping("/delete/{id}")
     public void deleteComment(@PathVariable("id")int id){
         commentsService.delete(id);

@@ -1,5 +1,6 @@
 package com.example.project.controllers;
 
+import com.example.project.aop.Visitor;
 import com.example.project.models.Person;
 import com.example.project.security.PersonDetails;
 import com.example.project.services.PeopleService;
@@ -37,6 +38,7 @@ public class AuthController {
     /**
      * выдает страницу аутентификации
      */
+    @Visitor(value = "login page")
     @GetMapping("/login")
     public String loginPage(){
         return "auth/login";
@@ -44,6 +46,7 @@ public class AuthController {
     /**
      * выдает страницу регистрации нового пользователя
      */
+    @Visitor(value = "registration")
     @GetMapping("/registration")
     public String registrationPage(@ModelAttribute("person")Person peson/*полож.пустого Person в модель*/){
         return "auth/registration";
@@ -78,12 +81,15 @@ public class AuthController {
 
         return "redirect:/auth/succesRegistPage";
     }
+
+    @Visitor(value = "succes regist page")
     @GetMapping("/succesRegistPage")
     public String succesRegistPage(){
         System.out.println("method auth/succesRegistPage called");
         return "auth/succesRegistPage";
     }
 
+    @Visitor(value = "guest registration")
     @GetMapping("guest_registration")
     public String guestRegistrationAndGoHomePage(HttpServletRequest request)
     {

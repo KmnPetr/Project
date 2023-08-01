@@ -1,5 +1,6 @@
 package com.example.project.controllers;
 
+import com.example.project.aop.Visitor;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -21,6 +22,7 @@ public class HomeController {
     /**
      * выдает первую домашнюю страницу после успешной аутентификации
      */
+    @Visitor(value = "Home")
     @GetMapping()
     public String homePage(Model model){
         Principal principal = httpServletRequest.getUserPrincipal();
@@ -35,6 +37,7 @@ public class HomeController {
     /**
      * выдает страницу для просмотра комментариев
      */
+    @Visitor(value = "Comment Page")
     @GetMapping("/comment")
     public String getCommentPage(){
         return "home/comment";
