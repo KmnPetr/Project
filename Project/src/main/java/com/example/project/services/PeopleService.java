@@ -46,6 +46,8 @@ public class PeopleService {
 
     @Transactional
     public void registrGuest(HttpServletRequest request) {
+        System.out.println("method registrGuest");
+
         List<Person> guests = peopleRepository.findGuestsPersons();
 
         ArrayList<Integer> sortedFilteredGuests=guests.stream()
@@ -61,10 +63,12 @@ public class PeopleService {
                 .collect(Collectors.toCollection(ArrayList<Integer>::new));
 
         String guestName = null;
-        
-        for (int i = 0; i < sortedFilteredGuests.size(); i++) {
-            if(i!=sortedFilteredGuests.get(i)){
+
+        for (int i = 0; i <= sortedFilteredGuests.size(); i++) {
+
+            if (i==sortedFilteredGuests.size()||i!=sortedFilteredGuests.get(i)) {
                 guestName="Guest_"+i;
+
                 break;
             }
         }
