@@ -34,7 +34,7 @@ public class Producer {
 
             key= String.valueOf(i);
 
-            if (new Random().nextInt(25)!=0){
+            if (new Random().nextInt(30)!=0){
                 message = "Some producer sends the "+i+"-th message to kafka..";
             }else message = "Why does it doing it?";
 

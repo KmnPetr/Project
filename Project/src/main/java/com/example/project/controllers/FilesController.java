@@ -10,6 +10,9 @@ import org.springframework.web.bind.annotation.RestController;
 import java.io.IOException;
 import java.io.InputStream;
 
+/**
+ * класс отдает различные статические файлы по требованию html-страниц
+ */
 @RestController
 @RequestMapping("/files")
 public class FilesController {

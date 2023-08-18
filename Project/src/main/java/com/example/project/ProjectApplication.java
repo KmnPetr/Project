@@ -18,6 +18,7 @@ public class ProjectApplication {
 
 		ApplicationContext applicationContext = SpringApplication.run(ProjectApplication.class, args);
 
+		//запуск потока отсылки сообщений в кафку
 		Producer kafkaProducer = applicationContext.getBean(Producer.class);
 		kafkaProducer.sendMessagesToKafka();
 	}

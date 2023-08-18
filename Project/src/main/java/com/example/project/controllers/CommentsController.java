@@ -20,6 +20,9 @@ import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * класс содержит функции для веб-взаимодействия со страницей html "comment"
+ */
 @RestController
 @RequestMapping("/comment")
 public class CommentsController {

@@ -20,6 +20,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.time.LocalDateTime;
 
+/**
+ * класс содержит точки входа связанные с регистрацией/аутентификацией
+ * и другими функциями, реализующими возможности spring security
+ */
 @Controller
 @RequestMapping("/auth")
 public class AuthController {

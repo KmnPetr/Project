@@ -42,4 +42,13 @@ public class HomeController {
     public String getCommentPage(){
         return "home/comment";
     }
+
+    /**
+     * выдает страницу testKafka
+     */
+    @Visitor(value = "TestKafka Page")
+    @GetMapping("/testKafka")
+    public String getPage_testKafka(){
+        return "home/testKafka";
+    }
 }

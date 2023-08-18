@@ -35,7 +35,8 @@ public class SecurityConfig {
                     auth.requestMatchers(
                             "/auth/succesRegistPage",
                             "/home/**",
-                            "/comment/**").hasAnyRole("GUEST","USER","ADMIN");
+                            "/comment/**",
+                            "/websocket/**").hasAnyRole("GUEST","USER","ADMIN");
 //                    auth.requestMatchers("/admin").hasRole("ADMIN");
                 })
                 .formLogin(it-> {

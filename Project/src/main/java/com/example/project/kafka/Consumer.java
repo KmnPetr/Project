@@ -1,7 +1,9 @@
 package com.example.project.kafka;
 
+import com.example.project.kafka.webSocket.SessionPool;
 import com.example.project.models.KafkaData;
-import com.example.project.repositories.KafkaDataRepository;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.annotation.KafkaListener;
@@ -17,10 +19,12 @@ import java.time.LocalDateTime;
 @Service
 public class Consumer {
 
-    private final KafkaDataRepository kafkaDataRepository;
+    private final SessionPool sessionPool;
+    private final ObjectMapper objectMapper;
     @Autowired
-    public Consumer(KafkaDataRepository kafkaDataRepository) {
-        this.kafkaDataRepository = kafkaDataRepository;
+    public Consumer(SessionPool sessionPool, ObjectMapper objectMapper) {
+        this.sessionPool = sessionPool;
+        this.objectMapper = objectMapper;
     }
 
     @KafkaListener(topics = "demo_topic", groupId = "group")
@@ -31,6 +35,8 @@ public class Consumer {
         kafkaData.setOffset(record.offset());
         kafkaData.setCreatedAt(LocalDateTime.now());
 
-        kafkaDataRepository.save(kafkaData);
+        try {
+            sessionPool.sendMessages(objectMapper.writeValueAsString(kafkaData));
+        }catch (JsonProcessingException e){e.getMessage();e.printStackTrace();}
     }
 }
